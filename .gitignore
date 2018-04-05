@@ -148,3 +148,7 @@ fabric.properties
 
 # Editor-based Rest Client
 .idea/httpRequests
+.idea/INT2018.iml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
