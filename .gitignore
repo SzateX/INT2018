@@ -153,3 +153,7 @@ fabric.properties
 .idea/modules.xml
 .idea/vcs.xml
 db.sqlite3
+INT/migrations/0002_auto_20180430_0001.py
+INT/migrations/0001_initial.py
+INT/migrations/__init__.py
+alpacas.jpg
