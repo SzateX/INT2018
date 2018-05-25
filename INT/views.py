@@ -1,6 +1,6 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import *
 from INT.models import *
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class View(LoginRequiredMixin, TemplateView):
