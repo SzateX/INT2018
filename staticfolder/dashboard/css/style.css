@@ -1,0 +1,44 @@
+.bg-blue-3
+{
+    background-color: #023e84 !important;
+}
+
+.bg-blue-2
+{
+    background-color: #035cc4 !important;
+}
+
+.bg-blue-1
+{
+    background-color: #297cda !important;
+}
+
+.bg-blue
+{
+    background-color: #66adff !important;
+}
+
+.txt-blue-3
+{
+    color: #023e84 !important;
+}
+
+.txt-blue-2
+{
+    color: #035cc4 !important;
+}
+
+.txt-blue-1
+{
+    color: #297cda !important;
+}
+
+.txt-blue
+{
+    color: #66adff !important;
+}
+
+.width-100
+{
+    width:100% !important;
+}
