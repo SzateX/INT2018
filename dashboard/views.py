@@ -9,33 +9,45 @@ class DashboardView(TemplateView):
 
 class SpeakersView(ListView):
     model = Speaker
-    template_name = 'speaker/list.html'
+    template_name = 'speakers/list.html'
+    context_object_name = 'speakers'
 
 
 class SpeakerDetailView(DetailView):
     model = Speaker
-    template_name = 'speaker/detail.html'
+    template_name = 'speakers/detail.html'
     context_object_name = 'speaker'
 
 
 class SpeakerCreateView(CreateView):
     model = Speaker
-    template_name = 'speaker/create.html'
-    fields = ['name', 'surname', 'company', 'description']
-    success_url = '/speakers'
+    template_name = 'speakers/create.html'
+    fields = ['name', 'surname', 'company_id', 'picture_id', 'description']
+    success_url = '/dashboard/speakers'
+
+    def get_context_data(self, **kwargs):
+        context = super(SpeakerCreateView, self).get_context_data(**kwargs)
+        context['isEdited'] = False
+        return context
 
 
 class SpeakerDeleteView(DeleteView):
     model = Speaker
-    template_name = 'speaker/delete.html'
-    success_url = '/speakers'
+    template_name = 'speakers/delete.html'
+    success_url = '/dashboard/speakers'
+    context_object_name = 'speaker'
 
 
 class SpeakerUpdateView(UpdateView):
     model = Speaker
-    fields = ['name', 'surname', 'company', 'description']
-    template_name = 'speaker/create.html'
-    success_url = '/speakers'
+    fields = ['name', 'surname', 'company_id', 'picture_id', 'description']
+    template_name = 'speakers/create.html'
+    success_url = '/dashboard/speakers'
+
+    def get_context_data(self, **kwargs):
+        context = super(SpeakerUpdateView, self).get_context_data(**kwargs)
+        context['isEdited'] = True
+        return context
 
 
 class PlacesView(ListView):
