@@ -83,35 +83,46 @@ class PlaceUpdateView(UpdateView):
 
 class LecturesView(ListView):
     model = Lecture
-    template_name = 'lecture/list.html'
+    template_name = 'lectures/list.html'
+    context_object_name = 'lectures'
 
 
 class LectureDetailView(DetailView):
     model = Lecture
-    template_name = 'lecture/detail.html'
+    template_name = 'lectures/detail.html'
     context_object_name = 'lecture'
 
 
 class LectureCreateView(CreateView):
     model = Lecture
-    template_name = 'lecture/create.html'
-    fields = ['title', 'speaker', 'begin_time', 'end_time', 'place',
+    template_name = 'lectures/create.html'
+    fields = ['title', 'begin_time', 'end_time', 'place_id',
               'description']
-    success_url = '/lecture'
+    success_url = '/dashboard/lecture'
+
+    def get_context_data(self, **kwargs):
+        context = super(LectureCreateView, self).get_context_data(**kwargs)
+        context['isEdited'] = False
+        return context
 
 
 class LectureDeleteView(DeleteView):
     model = Lecture
-    template_name = 'lecture/delete.html'
-    success_url = '/lecture'
+    template_name = 'lectures/delete.html'
+    success_url = '/dashboard/lecture'
 
 
 class LectureUpdateView(UpdateView):
     model = Lecture
-    template_name = 'lecture/create.html'
-    fields = ['title', 'speaker', 'begin_time', 'end_time', 'place',
+    template_name = 'lectures/create.html'
+    fields = ['title', 'begin_time', 'end_time', 'place_id',
               'description']
-    success_url = '/lecture'
+    success_url = '/dashboard/lecture'
+
+    def get_context_data(self, **kwargs):
+        context = super(LectureUpdateView, self).get_context_data(**kwargs)
+        context['isEdited'] = True
+        return context
 
 
 class NewsView(ListView):
