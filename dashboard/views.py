@@ -91,6 +91,7 @@ class LectureDetailView(DetailView):
     model = Lecture
     template_name = 'lectures/detail.html'
     context_object_name = 'lecture'
+    # TODO: Create template for lecture details
 
 
 class LectureCreateView(CreateView):
@@ -110,6 +111,7 @@ class LectureDeleteView(DeleteView):
     model = Lecture
     template_name = 'lectures/delete.html'
     success_url = '/dashboard/lecture'
+    context_object_name = 'lecture'
 
 
 class LectureUpdateView(UpdateView):
@@ -118,6 +120,7 @@ class LectureUpdateView(UpdateView):
     fields = ['title', 'begin_time', 'end_time', 'place_id',
               'description']
     success_url = '/dashboard/lecture'
+    context_object_name = 'lecture'
 
     def get_context_data(self, **kwargs):
         context = super(LectureUpdateView, self).get_context_data(**kwargs)
@@ -158,30 +161,44 @@ class NewsUpdateView(UpdateView):
 
 class CompanyView(ListView):
     model = Company
-    template_name = 'company/list.html'
+    template_name = 'companies/list.html'
+    context_object_name = 'companies'
 
 
 class CompanyDetailView(DetailView):
     model = Company
-    template_name = 'company/detail.html'
-    context_object_name = 'Company'
+    template_name = 'companies/detail.html'
+    context_object_name = 'company'
+    # TODO: Create template for company details
 
 
 class CompanyCreateView(CreateView):
     model = Company
-    template_name = 'company/create.html'
-    fields = ['title', 'content', 'creation_date', 'publish_date']
-    success_url = '/company'
+    template_name = "companies/create.html"
+    fields = ['name', 'description', 'status_id', 'picture_id']
+    success_url = '/dashboard/companies'
+
+    def get_context_data(self, **kwargs):
+        context = super(CompanyCreateView, self).get_context_data(**kwargs)
+        context['isEdited'] = False
+        return context
 
 
 class CompanyDeleteView(DeleteView):
     model = Company
-    template_name = 'company/delete.html'
-    success_url = '/company'
+    template_name = 'companies/delete.html'
+    success_url = '/dashboard/companies'
+    context_object_name = 'company'
 
 
 class CompanyUpdateView(UpdateView):
     model = Company
-    template_name = 'company/create.html'
-    fields = ['title', 'content', 'creation_date', 'publish_date']
-    success_url = '/company'
+    template_name = 'companies/create.html'
+    fields = ['name', 'description', 'status_id', 'picture_id']
+    success_url = '/dashboard/companies'
+    context_object_name = 'company'
+
+    def get_context_data(self, **kwargs):
+        context = super(CompanyUpdateView, self).get_context_data(**kwargs)
+        context['isEdited'] = True
+        return context

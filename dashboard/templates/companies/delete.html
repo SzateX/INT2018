@@ -4,9 +4,9 @@
         <div class="nav-wrapper container">
             <div class="col s12">
                 <a href="{% url 'dashboard' %}" class="breadcrumb">Dashboard</a>
-                <a href="{% url 'lecture_list' %}" class="breadcrumb">Prelekcje</a>
-                <a href="{% url 'lecture_detail' lecture.pk %}" class="breadcrumb">{{ lecture.title }}</a>
-                <a href="#!" class="breadcrumb">Usuwanie prelekcji</a>
+                <a href="{% url 'company_list' %}" class="breadcrumb">Firmy</a>
+                <a href="{% url 'company_detail' company.pk %}" class="breadcrumb">{{ company.name }}</a>
+                <a href="#!" class="breadcrumb">Usuwanie Firmy</a>
             </div>
         </div>
     </nav>
@@ -15,7 +15,7 @@
             <div class="col s12">
                 <form method="post">
                     {% csrf_token %}
-                    <p>Czy na pewno chcesz usunąć prelekcję?</p>
+                    <p>Czy na pewno chcesz usunąć firmę?</p>
                     <button class="btn waves-effect waves-light bg-blue-2" type="submit" name="action">Potwierdzam
                         <i class="material-icons right">send</i>
                     </button>
