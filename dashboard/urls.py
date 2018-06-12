@@ -3,7 +3,8 @@ from .views import DashboardView, SpeakersView, SpeakerDetailView, \
     SpeakerCreateView, SpeakerUpdateView, SpeakerDeleteView, LecturesView, \
     LectureCreateView, LectureDetailView, LectureUpdateView, LectureDeleteView, \
     CompanyView, CompanyCreateView, CompanyDetailView, CompanyUpdateView, \
-    CompanyDeleteView
+    CompanyDeleteView, PlacesView, PlaceCreateView, PlaceDetailView, \
+    PlaceUpdateView, PlaceDeleteView
 
 urlpatterns = [
     url(r'^$', DashboardView.as_view(), name='dashboard'),
@@ -21,6 +22,11 @@ urlpatterns = [
     url(r'^companies/create$', CompanyCreateView.as_view(), name='company_create'),
     url(r'^companies/(?P<pk>\d+)$', CompanyDetailView.as_view(), name='company_detail'),
     url(r'^companies/(?P<pk>\d+)/edit$', CompanyUpdateView.as_view(), name='company_edit'),
-    url(r'^companies/(?P<pk>\d+)/delete$', CompanyDeleteView.as_view(), name='company_delete')
+    url(r'^companies/(?P<pk>\d+)/delete$', CompanyDeleteView.as_view(), name='company_delete'),
+    url(r'^places$', PlacesView.as_view(), name='place_list'),
+    url(r'^places/create$', PlaceCreateView.as_view(), name='place_create'),
+    url(r'^places/(?P<pk>\d+)$', PlaceDetailView.as_view(), name='place_detail'),
+    url(r'^places/(?P<pk>\d+)/edit$', PlaceUpdateView.as_view(), name='place_edit'),
+    url(r'^places/(?P<pk>\d+)/delete$', PlaceDeleteView.as_view(), name='place_delete')
 
 ]
