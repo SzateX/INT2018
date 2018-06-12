@@ -186,6 +186,50 @@ class PlaceUpdateView(UpdateView):
         return context
 
 
+class PartnerStatusesView(ListView):
+    model = PartnerStatus
+    template_name = 'partner_statuses/list.html'
+    context_object_name = 'statuses'
+
+
+class PartnerStatusDetailView(DetailView):
+    model = PartnerStatus
+    template_name = 'partner_statuses/detail.html'
+    context_object_name = 'status'
+
+
+class PartnerStatusCreateView(CreateView):
+    model = PartnerStatus
+    template_name = 'partner_statuses/create.html'
+    fields = ['name']
+    success_url = '/partner_statuses'
+
+    def get_context_data(self, **kwargs):
+        context = super(PartnerStatusCreateView, self).get_context_data(**kwargs)
+        context['isEdited'] = False
+        return context
+
+
+class PartnerStatusDeleteView(DeleteView):
+    model = PartnerStatus
+    template_name = 'partner_statuses/delete.html'
+    success_url = '/partner_statuses'
+    context_object_name = 'status'
+
+
+class PartnerStatusUpdateView(UpdateView):
+    model = PartnerStatus
+    template_name = 'partner_statuses/create.html'
+    fields = ['name']
+    success_url = '/partner_statuses'
+    context_object_name = 'status'
+
+    def get_context_data(self, **kwargs):
+        context = super(PartnerStatusUpdateView, self).get_context_data(**kwargs)
+        context['isEdited'] = True
+        return context
+
+
 class NewsView(ListView):
     model = News
     template_name = 'news/list.html'
