@@ -271,3 +271,27 @@ class NewsUpdateView(UpdateView):
         context['isEdited'] = True
         return context
 
+
+class PicturesView(ListView):
+    model = Picture
+    template_name = 'pictures/list.html'
+    context_object_name = 'pictures'
+    queryset = Picture.objects.all().reverse()
+
+
+class PictureCreateView(CreateView):
+    model = Picture
+    template_name = 'pictures/create.html'
+    fields = ['source']
+    success_url = '/pictures'
+
+    def get_context_data(self, **kwargs):
+        context = super(PictureCreateView, self).get_context_data(**kwargs)
+        context['isEdited'] = False
+        return context
+
+
+class PictureDeleteView(DeleteView):
+    model = Picture
+    template_name = 'pictures/delete.html'
+    success_url = '/pictures'

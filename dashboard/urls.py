@@ -7,7 +7,8 @@ from .views import DashboardView, SpeakersView, SpeakerDetailView, \
     PlaceUpdateView, PlaceDeleteView, PartnerStatusesView, \
     PartnerStatusCreateView, PartnerStatusDetailView, PartnerStatusUpdateView, \
     PartnerStatusDeleteView, NewsesView, NewsCreateView, NewsDetailView, \
-    NewsUpdateView, NewsDeleteView
+    NewsUpdateView, NewsDeleteView, PicturesView, PictureCreateView, \
+    PictureDeleteView
 
 urlpatterns = [
     url(r'^$', DashboardView.as_view(), name='dashboard'),
@@ -38,7 +39,10 @@ urlpatterns = [
     url(r'^partner_statuses/(?P<pk>\d+)/delete$', PartnerStatusDeleteView.as_view(), name='partner_status_delete'),
     url(r'^news$', NewsesView.as_view(), name='news_list'),
     url(r'^news/create$', NewsCreateView.as_view(), name='news_create'),
-    url('^news/(?P<pk>\d+)$', NewsDetailView.as_view(), name='news_detail'),
-    url('^news/(?P<pk>\d+)/edit$', NewsUpdateView.as_view(), name='news_edit'),
-    url('^news/(?P<pk>\d+)/delete$', NewsDeleteView.as_view(), name='news_delete'),
+    url(r'^news/(?P<pk>\d+)$', NewsDetailView.as_view(), name='news_detail'),
+    url(r'^news/(?P<pk>\d+)/edit$', NewsUpdateView.as_view(), name='news_edit'),
+    url(r'^news/(?P<pk>\d+)/delete$', NewsDeleteView.as_view(), name='news_delete'),
+    url(r'^pictures$', PicturesView.as_view(), name='picture_list'),
+    url(r'^pictures/upload', PictureCreateView.as_view(), name='picture_create'),
+    url(r'^pictures/(?P<pk>\d+)/delete$', PictureDeleteView.as_view(), name='picture_delete')
 ]
