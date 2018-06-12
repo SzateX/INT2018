@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+    {{ form.media }}
     <nav class="bg-blue-2">
         <div class="nav-wrapper container">
             <div class="col s12">
@@ -28,4 +29,13 @@
             </form>
         </div>
     </div>
+
+    <script type="text/javascript" src="/admin/jsi18n/"></script>
+    <script type="text/javascript" src="/static/admin/js/core.js"></script>
+    <script type="text/javascript" src="/static/admin/js/admin/RelatedObjectLookups.js"></script>
+    <script type="text/javascript" src="/static/admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/admin/js/jquery.init.js"></script>
+    <script type="text/javascript" src="/static/admin/js/actions.min.js"></script>
+    <script type="text/javascript" src="/static/admin/js/calendar.js"></script>
+    <script type="text/javascript" src="/static/admin/js/admin/DateTimeShortcuts.js"></script>
 {% endblock %}

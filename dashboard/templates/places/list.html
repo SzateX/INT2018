@@ -26,7 +26,7 @@
                 </thead>
                 <tbody>
                     {% for place in places %}
-                            <tr href="{% url 'place_detail' place.pk %}">
+                            <tr>
                                 <td>{{ place.building_name }}</td>
                                 <td>{{ place.room_name }}</td>
                                 <td class="no-click">

@@ -149,12 +149,6 @@ class PlacesView(ListView):
     context_object_name = 'places'
 
 
-class PlaceDetailView(DetailView):
-    model = Place
-    template_name = 'places/detail.html'
-    context_object_name = 'place'
-
-
 class PlaceCreateView(CreateView):
     model = Place
     template_name = 'places/create.html'
@@ -191,12 +185,6 @@ class PartnerStatusesView(ListView):
     model = PartnerStatus
     template_name = 'partner_statuses/list.html'
     context_object_name = 'statuses'
-
-
-class PartnerStatusDetailView(DetailView):
-    model = PartnerStatus
-    template_name = 'partner_statuses/detail.html'
-    context_object_name = 'status'
 
 
 class PartnerStatusCreateView(CreateView):
@@ -246,30 +234,37 @@ class NewsDetailView(DetailView):
 class NewsCreateView(CreateView):
     form_class = NewsForms
     template_name = 'news/create.html'
-    success_url = '/news'
+    success_url = '/dashboard/news'
 
     def get_context_data(self, **kwargs):
         context = super(NewsCreateView, self).get_context_data(**kwargs)
         context['isEdited'] = False
         return context
+    
+    def form_valid(self, form):
+        return super(NewsCreateView, self).form_valid(form)
 
 
 class NewsDeleteView(DeleteView):
     model = News
     template_name = 'news/delete.html'
-    success_url = '/news'
+    success_url = '/dashboard/news'
 
 
 class NewsUpdateView(UpdateView):
+    model = News
     form_class = NewsForms
     template_name = 'news/create.html'
-    success_url = '/news'
+    success_url = '/dashboard/news'
     context_object_name = 'news'
 
     def get_context_data(self, **kwargs):
         context = super(NewsUpdateView, self).get_context_data(**kwargs)
         context['isEdited'] = True
         return context
+    
+    def form_valid(self, form):
+        return super(NewsUpdateView, self).form_valid(form)
 
 
 class PicturesView(ListView):

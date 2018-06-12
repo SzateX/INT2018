@@ -6,7 +6,7 @@
                 {% if isEdited %}
                     <a href="{% url 'dashboard' %}" class="breadcrumb">Dashboard</a>
                     <a href="{% url 'place_list' %}" class="breadcrumb">Miejsca</a>
-                    <a href="{% url 'place_detail' place.pk %}" class="breadcrumb">{{ place.building_name }} {{ place.room_name }}</a>
+                    <a href="" class="breadcrumb">{{ place.building_name }} {{ place.room_name }}</a>
                     <a href="#!" class="breadcrumb">Edytowanie miejsca</a>
                 {% else %}
                     <a href="{% url 'dashboard' %}" class="breadcrumb">Dashboard</a>
