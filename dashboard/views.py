@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import *
 from INT.models import *
+from .forms import NewsForms
 
 
 class DashboardView(TemplateView):
@@ -230,9 +231,10 @@ class PartnerStatusUpdateView(UpdateView):
         return context
 
 
-class NewsView(ListView):
+class NewsesView(ListView):
     model = News
     template_name = 'news/list.html'
+    context_object_name = 'newses'
 
 
 class NewsDetailView(DetailView):
@@ -242,10 +244,14 @@ class NewsDetailView(DetailView):
 
 
 class NewsCreateView(CreateView):
-    model = News
+    form_class = NewsForms
     template_name = 'news/create.html'
-    fields = ['title', 'content', 'creation_date', 'publish_date']
     success_url = '/news'
+
+    def get_context_data(self, **kwargs):
+        context = super(NewsCreateView, self).get_context_data(**kwargs)
+        context['isEdited'] = False
+        return context
 
 
 class NewsDeleteView(DeleteView):
@@ -255,8 +261,13 @@ class NewsDeleteView(DeleteView):
 
 
 class NewsUpdateView(UpdateView):
-    model = News
+    form_class = NewsForms
     template_name = 'news/create.html'
-    fields = ['title', 'content', 'creation_date', 'publish_date']
     success_url = '/news'
+    context_object_name = 'news'
+
+    def get_context_data(self, **kwargs):
+        context = super(NewsUpdateView, self).get_context_data(**kwargs)
+        context['isEdited'] = True
+        return context
 

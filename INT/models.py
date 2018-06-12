@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from martor.models import MartorField
 
 
 class Place(models.Model):
@@ -65,7 +66,8 @@ class SpeakerLecture(models.Model):
 
 
 class News(models.Model):
-    content = models.TextField()
+    #content = models.TextField()
+    content = MartorField()
     title = models.CharField(max_length=512)
     creation_date = models.DateField(default=timezone.now)
     publish_date = models.DateField(null=True, blank=True)
