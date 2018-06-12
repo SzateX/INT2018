@@ -50,50 +50,6 @@ class SpeakerUpdateView(UpdateView):
         return context
 
 
-class PlacesView(ListView):
-    model = Place
-    template_name = 'places/list.html'
-    context_object_name = 'places'
-
-
-class PlaceDetailView(DetailView):
-    model = Place
-    template_name = 'places/detail.html'
-    context_object_name = 'place'
-
-
-class PlaceCreateView(CreateView):
-    model = Place
-    template_name = 'places/create.html'
-    fields = ['building_name', 'room_name']
-    success_url = '/places'
-
-    def get_context_data(self, **kwargs):
-        context = super(PlaceCreateView, self).get_context_data(**kwargs)
-        context['isEdited'] = False
-        return context
-
-
-class PlaceDeleteView(DeleteView):
-    model = Place
-    template_name = 'places/delete.html'
-    success_url = '/places'
-    context_object_name = 'place'
-
-
-class PlaceUpdateView(UpdateView):
-    model = Place
-    template_name = 'places/create.html'
-    fields = ['building_name', 'room_name']
-    success_url = '/places'
-    context_object_name = 'place'
-
-    def get_context_data(self, **kwargs):
-        context = super(PlaceUpdateView, self).get_context_data(**kwargs)
-        context['isEdited'] = True
-        return context
-
-
 class LecturesView(ListView):
     model = Lecture
     template_name = 'lectures/list.html'
@@ -141,37 +97,6 @@ class LectureUpdateView(UpdateView):
         return context
 
 
-class NewsView(ListView):
-    model = News
-    template_name = 'news/list.html'
-
-
-class NewsDetailView(DetailView):
-    model = News
-    template_name = 'news/detail.html'
-    context_object_name = 'news'
-
-
-class NewsCreateView(CreateView):
-    model = News
-    template_name = 'news/create.html'
-    fields = ['title', 'content', 'creation_date', 'publish_date']
-    success_url = '/news'
-
-
-class NewsDeleteView(DeleteView):
-    model = News
-    template_name = 'news/delete.html'
-    success_url = '/news'
-
-
-class NewsUpdateView(UpdateView):
-    model = News
-    template_name = 'news/create.html'
-    fields = ['title', 'content', 'creation_date', 'publish_date']
-    success_url = '/news'
-
-
 class CompanyView(ListView):
     model = Company
     template_name = 'companies/list.html'
@@ -215,3 +140,79 @@ class CompanyUpdateView(UpdateView):
         context = super(CompanyUpdateView, self).get_context_data(**kwargs)
         context['isEdited'] = True
         return context
+
+
+class PlacesView(ListView):
+    model = Place
+    template_name = 'places/list.html'
+    context_object_name = 'places'
+
+
+class PlaceDetailView(DetailView):
+    model = Place
+    template_name = 'places/detail.html'
+    context_object_name = 'place'
+
+
+class PlaceCreateView(CreateView):
+    model = Place
+    template_name = 'places/create.html'
+    fields = ['building_name', 'room_name']
+    success_url = '/places'
+
+    def get_context_data(self, **kwargs):
+        context = super(PlaceCreateView, self).get_context_data(**kwargs)
+        context['isEdited'] = False
+        return context
+
+
+class PlaceDeleteView(DeleteView):
+    model = Place
+    template_name = 'places/delete.html'
+    success_url = '/places'
+    context_object_name = 'place'
+
+
+class PlaceUpdateView(UpdateView):
+    model = Place
+    template_name = 'places/create.html'
+    fields = ['building_name', 'room_name']
+    success_url = '/places'
+    context_object_name = 'place'
+
+    def get_context_data(self, **kwargs):
+        context = super(PlaceUpdateView, self).get_context_data(**kwargs)
+        context['isEdited'] = True
+        return context
+
+
+class NewsView(ListView):
+    model = News
+    template_name = 'news/list.html'
+
+
+class NewsDetailView(DetailView):
+    model = News
+    template_name = 'news/detail.html'
+    context_object_name = 'news'
+
+
+class NewsCreateView(CreateView):
+    model = News
+    template_name = 'news/create.html'
+    fields = ['title', 'content', 'creation_date', 'publish_date']
+    success_url = '/news'
+
+
+class NewsDeleteView(DeleteView):
+    model = News
+    template_name = 'news/delete.html'
+    success_url = '/news'
+
+
+class NewsUpdateView(UpdateView):
+    model = News
+    template_name = 'news/create.html'
+    fields = ['title', 'content', 'creation_date', 'publish_date']
+    success_url = '/news'
+
