@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+{% load static %}
+{% load listutil %}
+<html>
+    <head>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+              rel="stylesheet">
+        <link type="text/css" rel="stylesheet" href="{% static 'frontend/css/materialize.min.css' %}"
+              media="screen,projection"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta charset="utf-8">
+        <title>INT - The dark side of programming</title>
+        <link rel="stylesheet" href="{% static 'frontend/css/style.css' %}">
+        <link rel="shortcut icon" href="{% static 'frontend/img/favicon.ico' %}"/>
+    </head>
+
+    <body>
+        <script type="text/javascript"
+                src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="{% static 'frontend/js/materialize.min.js' %}"></script>
+        <script type="text/javascript">
+            $( document ).ready(function(){
+                $(".button-collapse").sideNav();
+                $('.parallax').parallax();
+                $('.scrollspy').scrollSpy();
+            });
+            $(window).on('scroll', function() {
+                smoothBackgroundScroll("{% static 'frontend/img/bg.png' %}");
+            });
+            function smoothBackgroundScroll(imgsrc) {
+                function loadImageHeight(url, width) {
+                    var img = new Image();
+                    img.src = url;
+                    if (width) {
+                        img.width = width;
+                    }
+                    return img.height;
+                }
+                var dh, wh, ih, st, posy, backh, backw;
+                if (!this._smoothBackgroundScroll) {
+                    var bcksize = $(document.body).css('background-size');
+                    var bmatch = /(\w+)\s*(\w+)/.exec(bcksize);
+                    if (!bmatch || bmatch.length < 3) {
+                        backh = loadImageHeight(imgsrc)
+                    } else {
+                        backh = parseInt(bmatch[2]);
+                        if (isNaN(backh)) {
+                            backw = parseInt(bmatch[1]);
+                            backh = loadImageHeight(imgsrc, parseInt(backw));
+                        }
+                    }
+                    this._smoothBackgroundScroll = {
+                        dh: $(document).height()
+                        , wh: $(window).height()
+                        , ih: backh
+                    }
+                }
+                dh = this._smoothBackgroundScroll.dh;
+                wh = this._smoothBackgroundScroll.wh
+                ih = this._smoothBackgroundScroll.ih;
+                st = $(document).scrollTop();
+                posy = (dh - ih) * st / (dh - wh);
+                posy = st - (st - posy) * 1;
+                document.body.style.backgroundPosition = 'center ' + posy + 'px';
+            }
+        </script>
+        <main>
+            {% block content %}
+            
+            {% endblock %}
+        </main>
+    <footer class="page-footer int-green">
+          <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <h5 class="white-text header">Skontaktuj się z nami:</h5>
+                  <a href="mailto:int.c@kneiti.prz.edu.pl" class="waves-effect waves-light btn-large logo-button"><i class="fa fa-envelope" aria-hidden="true"></i></a><br>
+                  int.c@kneiti.prz.edu.pl
+              </div>
+              <div class="col l4 offset-l2 s12">
+                <h5 class="white-text header">Odwiedź również:</h5>
+                <ul>
+                    <li class="gray-purple"><a href="https://www.facebook.com/int.rzeszow/?ref=ts&fref=ts"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i><span class="distance">Facebook</span></a></li>
+                  <li class="gray-purple"><a href="https://www.instagram.com/int.rzeszow/"><i class="fa fa-instagram fa-lg gray-purple" aria-hidden="true"></i><span class="distance">Instagram</span></a></li>
+                  <li class="gray-purple"><a href="https://twitter.com/INT_C2017"><i class="fa fa-twitter fa-lg gray-purple" aria-hidden="true"></i><span class="distance">Twitter</span></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+                © 2017 <a href="{% url 'kodziarze' %}">kodziarze.TK</a>
+            </div>
+          </div>
+    </footer>
+    </body>
+</html>
