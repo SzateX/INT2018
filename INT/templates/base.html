@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 {% load static %}
-{% load listutil %}
 <html>
     <head>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
               rel="stylesheet">
-        <link type="text/css" rel="stylesheet" href="{% static 'frontend/css/materialize.min.css' %}"
+        <link type="text/css" rel="stylesheet" href="{% static 'frontpage/css/materialize.min.css' %}"
               media="screen,projection"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <meta charset="utf-8">
         <title>INT - The dark side of programming</title>
-        <link rel="stylesheet" href="{% static 'frontend/css/style.css' %}">
-        <link rel="shortcut icon" href="{% static 'frontend/img/favicon.ico' %}"/>
+        <link rel="stylesheet" href="{% static 'frontpage/css/style.css' %}">
+        <link rel="shortcut icon" href="{% static 'frontpage/img/favicon.ico' %}"/>
     </head>
 
     <body>
         <script type="text/javascript"
                 src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-        <script type="text/javascript" src="{% static 'frontend/js/materialize.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'frontpage/js/materialize.min.js' %}"></script>
         <script type="text/javascript">
             $( document ).ready(function(){
                 $(".button-collapse").sideNav();
@@ -26,7 +25,7 @@
                 $('.scrollspy').scrollSpy();
             });
             $(window).on('scroll', function() {
-                smoothBackgroundScroll("{% static 'frontend/img/bg.png' %}");
+                smoothBackgroundScroll("{% static 'frontpage/img/bg.png' %}");
             });
             function smoothBackgroundScroll(imgsrc) {
                 function loadImageHeight(url, width) {
@@ -90,7 +89,7 @@
           </div>
           <div class="footer-copyright">
             <div class="container">
-                © 2017 <a href="{% url 'kodziarze' %}">kodziarze.TK</a>
+                © 2017 <a href="">kodziarze.TK</a>
             </div>
           </div>
     </footer>

@@ -33,5 +33,15 @@ class SpeakerDetailView(DetailView):
         return context
 
 
+class HomepageView(TemplateView):
+    template_name = 'index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(HomepageView, self).get_context_data(**kwargs)
+        context['lectures'] = Lecture.objects.all().order_by('begin_time')
+        context['partners'] = Company.objects.all()
+        return context
+
+
 class KodziarzeView(TemplateView):
     template_name = 'kodziarze_detail.html'

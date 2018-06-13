@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from martor.models import MartorField
 
 
 class Place(models.Model):
@@ -57,15 +58,15 @@ class Speaker(models.Model):
 
 
 class SpeakerLecture(models.Model):
-    speaker_id = models.ForeignKey('Speaker', on_delete=models.CASCADE)
-    lecture_id = models.ForeignKey('Lecture', on_delete=models.CASCADE)
+    speaker_id = models.ForeignKey('Speaker', on_delete=models.CASCADE, related_name='speakers')
+    lecture_id = models.ForeignKey('Lecture', on_delete=models.CASCADE, related_name='lectures')
 
     def __str__(self):
         return "%s %s %s" % (self.pk, self.speaker_id, self.lecture_id)
 
 
 class News(models.Model):
-    content = models.TextField()
+    content = MartorField()
     title = models.CharField(max_length=512)
     creation_date = models.DateField(default=timezone.now)
     publish_date = models.DateField(null=True, blank=True)

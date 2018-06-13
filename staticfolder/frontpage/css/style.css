@@ -1,0 +1,251 @@
+.int-gold{
+    background-color: #bf9c56;
+}
+
+.int-purple{
+    background-color: #7956bf;
+}
+
+.int-pink{
+    background-color: #bf569c;
+}
+
+.int-green{
+    background-color: #9cbf56;
+}
+
+.int-light-grey{
+    background-color: rgba(236,239,241,0.8)
+}
+
+.int-dark-grey{
+    background-color: rgba(38,50,56,0.9)
+}
+
+.int-gold-text{
+    color: #bf9c56;
+}
+
+.int-purple-text{
+    color: #7956bf;
+}
+
+.int-pink-text{
+    color: #bf569c;
+}
+
+.int-green-text{
+    color: #9cbf56;
+}
+
+.no-margin-bottom{
+    margin-bottom: 0px;
+}
+
+.no-padding-bottom{
+   padding-bottom: 0px;
+}
+
+.margin-bottom-minus-six{
+    margin-bottom: -6px;
+}
+
+
+.flx{
+    display: flex;
+}
+
+.flex-align-bottom{
+    align-self: end;
+}
+
+
+@font-face {
+  font-family: "Oswald";
+  src: local(Oswald Light), url("../fonts/oswald/Oswald-Light.ttf");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Oswald";
+  src: local(Oswald Thin), url("../fonts/oswald/Oswald-ExtraLight.ttf");
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: "Oswald";
+  src: local(Oswald Medium), url("../fonts/oswald/Oswald-Medium.ttf");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Oswald";
+  src: local(Oswald Regular), url("../fonts/oswald/Oswald-Regular.ttf");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Oswald";
+  src: local(Oswald Bold), url("../fonts/oswald/Oswald-Bold.ttf");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Oswald";
+  src: local(Oswald SemiBold), url("../fonts/oswald/Oswald-SemiBold.ttf");
+  font-weight: 600;
+}
+
+.top{
+    height: 500px;
+}
+
+.header{
+    font-family: "Oswald";
+}
+
+nav{
+    font-family: "Oswald";
+}
+
+nav.nav-center ul {
+    text-align: center;
+}
+nav.nav-center ul li {
+    display: inline;
+    float: none;
+}
+nav.nav-center ul li a {
+    display: inline-block;
+    font-size: 20px;
+}
+
+.map-responsive{
+    overflow:hidden;
+    padding-bottom:70%;
+    position:relative;
+    height:0;
+}
+.map-responsive iframe{
+    left:0;
+    top:0;
+    height:100%;
+    width:100%;
+    position:absolute;
+}
+
+.flow-text{
+    font-size: 15px;
+}
+
+.no-margin{
+    margin: -25px auto -25px;
+}
+
+body{
+	background-position: center 0;
+	background-repeat: repeat-y;
+	background-size: auto auto;
+	background-image: url("../img/bg.png");
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+.distance{
+    margin: 15px;
+}
+header + .bgnd {
+    height: 86vh;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+.logo{
+    margin: 5% auto 2.5%;
+}
+
+.logo-button{
+    margin-bottom: 2.5%;
+}
+
+/*.section{
+    margin: 25px auto 25px;
+}*/
+
+.gray-purple a{
+    color: #f5f5f5;
+    transition-property: color;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
+}
+
+.gray-purple i{
+    display: inline-block;
+    width: 20px;
+}
+
+.gray-purple a:hover{
+    color: #7956bf;
+}
+
+.btn-large{
+    background-color: #bf569c;
+}
+
+.btn-large:hover{
+    background-color: #cf6cb5;
+}
+
+.btn-large:focus{
+    background-color: #bf569c;
+}
+
+.table-of-contents a{
+    font-weight: inherit;
+	color: inherit;
+	height: inherit;
+	line-height: inherit;
+}
+
+.table-of-contents a:hover{
+	font-weight: inherit;
+	color: inherit;
+	height: inherit;
+	line-height: inherit;
+}	
+
+.table-of-contents a.active {
+	font-weight: inherit;
+	padding-left: inherit;
+	border-left: inherit;
+}
+
+@media only screen and (min-width: 993px){
+    #only-for-small{
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 601px){
+    .separator{
+    width: 5px;
+    height: inherit;
+    background-color: #7956bf;
+    float: left;
+    }
+
+    .fl{
+        display: flex;
+    }
+
+	.partnercenter{
+	display: flex;
+	justify-content: center;
+}
+
+.partnercenter .col{
+	margin-left: 0!important;
+}
+}
