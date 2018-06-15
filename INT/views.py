@@ -30,7 +30,8 @@ class SpeakerDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(SpeakerDetailView, self).get_context_data(**kwargs)
         ls = SpeakerLecture.objects.filter(speaker_id=self.object)
-        context['lectures'] = ls.select_related('lecture_id')
+        context['lectures'] = ls
+        print(context['lectures'])
         return context
 
 

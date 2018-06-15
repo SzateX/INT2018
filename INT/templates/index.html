@@ -46,15 +46,15 @@
                             <h5>{{lecture.title}}</h5>
                                 <p>
                                 {% for speaker in lecture|get_related_speakers %}
-                                    <a href="{% url 'SpeakerDetail' speaker.pk %}">{{speaker.speaker_id.name}} {{speaker.speaker_id.surname}}</a>
+                                    <a href="{% url 'SpeakerDetail' speaker.speaker_id.pk %}">{{speaker.speaker_id.name}} {{speaker.speaker_id.surname}}</a>
                                     {% if not forloop.last %}, {% endif %}
                                 {% endfor %}
                                 </p>
-                                {% for s in lecture.speakers.all %}
+                                <!--{% for s in lecture.speakers.all %}
                                     {% for speaker in s.speaker_id.all %}
                                          <p><a href="{% url 'SpeakerDetail' speaker.pk %}">{{speaker.name}} {{speaker.surname}}</a></p>
                                     {% endfor %}
-                                {% endfor %}
+                                {% endfor %} -->
                             <div class="divider"></div>
                             {% endfor %}
                         </div>
@@ -63,11 +63,12 @@
                             {% for lecture in lectures|rows:"2"|last %}
                             <h6><i class="fa fa-clock-o" aria-hidden="false"></i>{{lecture.begin_time|time:"H:i"}} - {{lecture.end_time|time:"H:i"}}<span style="margin-left: 4em"></span> <i class="fa fa-building-o" aria-hidden="false"></i> {{lecture.place_id.building_name}}{{lecture.place_id.room_name}}</h6>
                             <h5>{{lecture.title}}</h5>
-                            {% for s in lecture.speakers.all %}
-                                    {% for speaker in s.speaker_id.all %}
-                                         <p><a href="">{{speaker.name}} {{speaker.surname}}</a></p>
-                                    {% endfor %}
+                                <p>
+                                {% for speaker in lecture|get_related_speakers %}
+                                    <a href="{% url 'SpeakerDetail' speaker.speaker_id.pk %}">{{speaker.speaker_id.name}} {{speaker.speaker_id.surname}}</a>
+                                    {% if not forloop.last %}, {% endif %}
                                 {% endfor %}
+                                </p>
                             <div class="divider"></div>
                             {% endfor %}
                         </div>
@@ -131,8 +132,8 @@
                         <div class="partnercenter">
                             {% for partner in partners %}
                                 <div class="col m2">
-                                    <a href=""><img src="{{partner.picture_id.source.url}}" alt="" class="circle responsive-img"></a>
-                                    <a href="">{{partner.name}}</a>
+                                    <a href="{% url 'CompanyDetail' partner.pk %}"><img src="{{partner.picture_id.source.url}}" alt="" class="circle responsive-img"></a>
+                                    <a href="{% url 'CompanyDetail' partner.pk %}">{{partner.name}}</a>
                                 </div>
                                 {% if forloop.counter|divisibleby:6 %}
                                     </div></div>
