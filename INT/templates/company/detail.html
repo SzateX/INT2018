@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+            <div class="section int-dark-grey">
+                <div class="row container blue-grey-text text-lighten-5">
+                    <div class="col m4">
+                        <img src="{{partner.logo.url}}" class="responsive-img circle"/>
+                    </div>
+                    <div class="col m8">
+                        <h2 class="header center">{{partner.name}}</h2>
+                        <p>{{partner.description}}</p>
+                    </div>
+                </div>
+            </div>
+{% endblock %}

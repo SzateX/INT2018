@@ -65,6 +65,28 @@
             }
         </script>
         <main>
+            <div class="center container">
+                    <a href="{% url 'Homepage' %}"><img class="responsive-img logo" src="{% static 'frontpage/img/logo_for_web.png' %}"></a><br>
+            </div>
+            <nav class="nav-center int-green" role="navigation">
+                <div class="nav-wrapper container">
+                    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                    <ul class="hide-on-med-and-down">
+                        <li><a href="{% url 'Homepage'%}#place">Miejsce</a></li>
+                        <li><a href="{% url 'Homepage'%}#lectures">Agenda</a></li>
+                        <li><a href="{% url 'Homepage'%}#organizers">Organizatorzy</a></li>
+                        <li><a href="{% url 'Homepage'%}#partners">Partnerzy</a></li>
+                        <li><a href="{% url 'NewsList' %}">Aktualności</a></li>
+                    </ul>
+                    <ul class="side-nav" id="mobile-demo">
+                        <li><a href="{% url 'Homepage'%}#place">Miejsce</a></li>
+                        <li><a href="{% url 'Homepage'%}#lectures">Agenda</a></li>
+                        <li><a href="{% url 'Homepage'%}#organizers">Organizatorzy</a></li>
+                        <li><a href="{% url 'Homepage'%}#partners">Partnerzy</a></li>
+                        <li><a href="{% url 'NewsList' %}">Aktualności</a></li>
+                    </ul>
+                </div>
+            </nav>
             {% block content %}
             
             {% endblock %}

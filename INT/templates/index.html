@@ -3,28 +3,6 @@
 {% load filtertags %}
 {% load static %}
 {% block content %}
-<div class="center container">
-                <a href=""><img class="responsive-img logo" src="{% static 'frontpage/img/logo_for_web.png' %}"></a><br>
-            </div>
-            <nav class="nav-center int-green" role="navigation">
-                <div class="nav-wrapper container">
-                    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-                    <ul class="hide-on-med-and-down table-of-contents">
-                        <li><a href="">Miejsce</a></li>
-                        <li><a href="">Agenda</a></li>
-                        <li><a href="">Organizatorzy</a></li>
-                        <li><a href="">Partnerzy</a></li>
-                        <li><a href="{% url 'NewsList' %}">Aktualności</a></li>
-                    </ul>
-                    <ul class="side-nav" id="mobile-demo">
-                        <li><a href="">Miejsce</a></li>
-                        <li><a href="">Agenda</a></li>
-                        <li><a href="">Organizatorzy</a></li>
-                        <li><a href="">Partnerzy</a></li>
-                        <li><a href="{% url 'NewsList' %}">Aktualności</a></li>
-                    </ul>
-                </div>
-            </nav>
             <div class="section int-light-grey scrollspy" id="about">
                 <div class="row container blue-grey-text text-darken-4">
                     <h2 class="header center">O KONFERENCJI</h2>
@@ -68,13 +46,13 @@
                             <h5>{{lecture.title}}</h5>
                                 <p>
                                 {% for speaker in lecture|get_related_speakers %}
-                                    <a href="">{{speaker.speaker_id.name}} {{speaker.speaker_id.surname}}</a>
+                                    <a href="{% url 'SpeakerDetail' speaker.pk %}">{{speaker.speaker_id.name}} {{speaker.speaker_id.surname}}</a>
                                     {% if not forloop.last %}, {% endif %}
                                 {% endfor %}
                                 </p>
                                 {% for s in lecture.speakers.all %}
                                     {% for speaker in s.speaker_id.all %}
-                                         <p><a href="">{{speaker.name}} {{speaker.surname}}</a></p>
+                                         <p><a href="{% url 'SpeakerDetail' speaker.pk %}">{{speaker.name}} {{speaker.surname}}</a></p>
                                     {% endfor %}
                                 {% endfor %}
                             <div class="divider"></div>
