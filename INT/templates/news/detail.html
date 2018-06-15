@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load martortags %}
+{% block content %}
+            <div class="center container">
+                    <a href=""><img class="responsive-img logo" src="{% static 'frontpage/img/logo_for_web.png' %}"></a><br>
+            </div>
+            <nav class="nav-center int-green" role="navigation">
+                <div class="nav-wrapper container">
+                    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                    <ul class="hide-on-med-and-down">
+                        <li><a href="">Miejsce</a></li>
+                        <li><a href="">Agenda</a></li>
+                        <li><a href="">Organizatorzy</a></li>
+                        <li><a href="">Partnerzy</a></li>
+                        <li><a href="">Aktualności</a></li>
+                    </ul>
+                    <ul class="side-nav" id="mobile-demo">
+                        <li><a href="">Miejsce</a></li>
+                        <li><a href="">Agenda</a></li>
+                        <li><a href="">Organizatorzy</a></li>
+                        <li><a href="">Partnerzy</a></li>
+                        <li><a href="">Aktualności</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="parallax-container">
+                <div class="parallax"><img src="{{news.picture_id.source.url}}"></div>
+            </div>
+            <div class="section int-dark-grey">
+                <div class="row container">
+                    <div class="col s12">
+                        <h2 class="header center blue-grey-text text-lighten-5">{{news.title}}</h2>
+                        <div class="blue-grey-text text-lighten-5" style="text-align: justify">
+                            {{ news.content|safe_markdown }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+{% endblock %}
