@@ -66,7 +66,6 @@ class SpeakerLecture(models.Model):
 
 
 class News(models.Model):
-    #content = models.TextField()
     content = MartorField()
     title = models.CharField(max_length=512)
     creation_date = models.DateField(default=timezone.now)

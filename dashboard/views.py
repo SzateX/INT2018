@@ -1,7 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseRedirect
 from django.views.generic import *
 from INT.models import *
-from .forms import NewsForms
+from .forms import NewsForms, LectureForm
 
 
 class DashboardView(TemplateView):
@@ -67,14 +68,20 @@ class LectureDetailView(DetailView):
 class LectureCreateView(CreateView):
     model = Lecture
     template_name = 'lectures/create.html'
-    fields = ['title', 'begin_time', 'end_time', 'place_id',
-              'description']
-    success_url = '/dashboard/lecture'
+    form_class = LectureForm
+    success_url = '/dashboard/lectures'
 
     def get_context_data(self, **kwargs):
         context = super(LectureCreateView, self).get_context_data(**kwargs)
         context['isEdited'] = False
         return context
+
+    def form_valid(self, form):
+        self.object = form.save()
+        for speaker in form.cleaned_data["speakers"]:
+            s = SpeakerLecture.objects.get_or_create(lecture_id=self.object, speaker_id=speaker)
+
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class LectureDeleteView(DeleteView):
@@ -87,15 +94,25 @@ class LectureDeleteView(DeleteView):
 class LectureUpdateView(UpdateView):
     model = Lecture
     template_name = 'lectures/create.html'
-    fields = ['title', 'begin_time', 'end_time', 'place_id',
-              'description']
-    success_url = '/dashboard/lecture'
+    form_class = LectureForm
+    success_url = '/dashboard/lectures'
     context_object_name = 'lecture'
 
     def get_context_data(self, **kwargs):
         context = super(LectureUpdateView, self).get_context_data(**kwargs)
         context['isEdited'] = True
         return context
+
+    def form_valid(self, form):
+        self.object = form.save()
+        q = SpeakerLecture.objects.filter(lecture_id=self.object)
+        for attribution in q:
+            if attribution.speaker_id not in form.cleaned_data["speakers"]:
+                attribution.delete()
+        for speaker in form.cleaned_data["speakers"]:
+            s = SpeakerLecture.objects.get_or_create(lecture_id=self.object, speaker_id=speaker)
+
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class CompanyView(ListView):
