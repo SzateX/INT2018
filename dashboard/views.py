@@ -125,7 +125,7 @@ class LectureUpdateView(LoginRequiredMixin, UpdateView):
         context = super(LectureUpdateView, self).get_context_data(**kwargs)
         context['isEdited'] = True
         return context
-
+    
     def form_valid(self, form):
         self.object = form.save()
         q = SpeakerLecture.objects.filter(lecture_id=self.object)
@@ -240,7 +240,7 @@ class PartnerStatusCreateView(LoginRequiredMixin, CreateView):
     model = PartnerStatus
     template_name = 'dashboard/partner_statuses/create.html'
     fields = ['name']
-    success_url = '/partner_statuses'
+    success_url = '/dashboard/partner_statuses'
     login_url = LOGIN_URL
 
     def get_context_data(self, **kwargs):
@@ -252,7 +252,7 @@ class PartnerStatusCreateView(LoginRequiredMixin, CreateView):
 class PartnerStatusDeleteView(LoginRequiredMixin, DeleteView):
     model = PartnerStatus
     template_name = 'dashboard/partner_statuses/delete.html'
-    success_url = '/partner_statuses'
+    success_url = '/dashboard/partner_statuses'
     context_object_name = 'status'
     login_url = LOGIN_URL
 
@@ -261,7 +261,7 @@ class PartnerStatusUpdateView(LoginRequiredMixin, UpdateView):
     model = PartnerStatus
     template_name = 'dashboard/partner_statuses/create.html'
     fields = ['name']
-    success_url = '/partner_statuses'
+    success_url = '/dashboard/partner_statuses'
     context_object_name = 'status'
     login_url = LOGIN_URL
 
