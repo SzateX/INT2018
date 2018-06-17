@@ -14,5 +14,7 @@ $(document).ready(
         $('select').formSelect();
 
         $('.datepicker').datepicker({format:'yyyy-mm-dd'});
+
+        $('.sidenav').sidenav();
     }
 );

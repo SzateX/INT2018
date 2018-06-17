@@ -8,10 +8,12 @@ from .views import DashboardView, SpeakersView, SpeakerDetailView, \
     PartnerStatusCreateView, PartnerStatusUpdateView, \
     PartnerStatusDeleteView, NewsesView, NewsCreateView, NewsDetailView, \
     NewsUpdateView, NewsDeleteView, PicturesView, PictureCreateView, \
-    PictureDeleteView
+    PictureDeleteView, DashboardLoginView, DashboardLogoutView
 
 urlpatterns = [
     url(r'^$', DashboardView.as_view(), name='dashboard'),
+    url(r'^login/$', DashboardLoginView.as_view(), name='login'),
+    url(r'^logout/$', DashboardLogoutView.as_view(), name='logout'),
     url(r'^speakers/$', SpeakersView.as_view(), name='speaker_list'),
     url(r'^speakers/(?P<pk>\d+)$', SpeakerDetailView.as_view(), name='speaker_detail'),
     url(r'^speakers/create$', SpeakerCreateView.as_view(), name='speaker_create'),

@@ -19,7 +19,18 @@
     <nav>
         <div class="nav-wrapper bg-blue-3">
             <div class="container">
-                <a href="#" class="brand-logo">Int WWW - Dashboard</a>
+                <a href="{% url 'dashboard' %}" class="brand-logo">Int WWW - Dashboard</a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'logout' %}">Wyloguj</a></li>
+                    {% endif %}
+                </ul>
+                <ul class="sidenav" id="mobile-demo">
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'logout' %}">Wyloguj</a></li>
+                    {% endif %}
+                </ul>
             </div>
         </div>
     </nav>

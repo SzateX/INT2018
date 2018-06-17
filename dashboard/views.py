@@ -1,31 +1,46 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView, LogoutView
 from django.http import HttpResponseRedirect
 from django.views.generic import *
 from INT.models import *
-from .forms import NewsForms, LectureForm, SpeakerForm
+from .forms import NewsForms, LectureForm, SpeakerForm, CompanyForm
 
 
-class DashboardView(TemplateView):
+LOGIN_URL = '/dashboard/login'
+
+
+class DashboardLoginView(LoginView):
+    template_name = 'login.html'
+
+
+class DashboardLogoutView(LogoutView):
+    template_name = 'logout.html'
+
+
+class DashboardView(LoginRequiredMixin, TemplateView):
     template_name = 'dashboard.html'
+    login_url = LOGIN_URL
 
 
-class SpeakersView(ListView):
+class SpeakersView(LoginRequiredMixin, ListView):
     model = Speaker
     template_name = 'speakers/list.html'
     context_object_name = 'speakers'
+    login_url = LOGIN_URL
 
 
-class SpeakerDetailView(DetailView):
+class SpeakerDetailView(LoginRequiredMixin, DetailView):
     model = Speaker
     template_name = 'speakers/detail.html'
     context_object_name = 'speaker'
 
 
-class SpeakerCreateView(CreateView):
+class SpeakerCreateView(LoginRequiredMixin, CreateView):
     model = Speaker
     template_name = 'speakers/create.html'
     fields = ['name', 'surname', 'company_id', 'picture_id', 'description']
     success_url = '/dashboard/speakers'
+    login_url = LOGIN_URL
 
     def get_context_data(self, **kwargs):
         context = super(SpeakerCreateView, self).get_context_data(**kwargs)
@@ -33,19 +48,21 @@ class SpeakerCreateView(CreateView):
         return context
 
 
-class SpeakerDeleteView(DeleteView):
+class SpeakerDeleteView(LoginRequiredMixin, DeleteView):
     model = Speaker
     template_name = 'speakers/delete.html'
     success_url = '/dashboard/speakers'
     context_object_name = 'speaker'
+    login_url = LOGIN_URL
 
 
-class SpeakerUpdateView(UpdateView):
+class SpeakerUpdateView(LoginRequiredMixin, UpdateView):
     model = Speaker
     # fields = ['name', 'surname', 'company_id', 'picture_id', 'description']
     template_name = 'speakers/create.html'
     success_url = '/dashboard/speakers'
     form_class = SpeakerForm
+    login_url = LOGIN_URL
 
     def get_context_data(self, **kwargs):
         context = super(SpeakerUpdateView, self).get_context_data(**kwargs)
@@ -53,24 +70,26 @@ class SpeakerUpdateView(UpdateView):
         return context
 
 
-class LecturesView(ListView):
+class LecturesView(LoginRequiredMixin, ListView):
     model = Lecture
     template_name = 'lectures/list.html'
     context_object_name = 'lectures'
+    login_url = LOGIN_URL
 
 
-class LectureDetailView(DetailView):
+class LectureDetailView(LoginRequiredMixin, DetailView):
     model = Lecture
     template_name = 'lectures/detail.html'
     context_object_name = 'lecture'
-    # TODO: Create template for lecture details
+    login_url = LOGIN_URL
 
 
-class LectureCreateView(CreateView):
+class LectureCreateView(LoginRequiredMixin, CreateView):
     model = Lecture
     template_name = 'lectures/create.html'
     form_class = LectureForm
     success_url = '/dashboard/lectures'
+    login_url = LOGIN_URL
 
     def get_context_data(self, **kwargs):
         context = super(LectureCreateView, self).get_context_data(**kwargs)
@@ -85,19 +104,21 @@ class LectureCreateView(CreateView):
         return HttpResponseRedirect(self.get_success_url())
 
 
-class LectureDeleteView(DeleteView):
+class LectureDeleteView(LoginRequiredMixin, DeleteView):
     model = Lecture
     template_name = 'lectures/delete.html'
     success_url = '/dashboard/lecture'
     context_object_name = 'lecture'
+    login_url = LOGIN_URL
 
 
-class LectureUpdateView(UpdateView):
+class LectureUpdateView(LoginRequiredMixin, UpdateView):
     model = Lecture
     template_name = 'lectures/create.html'
     form_class = LectureForm
     success_url = '/dashboard/lectures'
     context_object_name = 'lecture'
+    login_url = LOGIN_URL
 
     def get_context_data(self, **kwargs):
         context = super(LectureUpdateView, self).get_context_data(**kwargs)
@@ -116,24 +137,26 @@ class LectureUpdateView(UpdateView):
         return HttpResponseRedirect(self.get_success_url())
 
 
-class CompanyView(ListView):
+class CompanyView(LoginRequiredMixin, ListView):
     model = Company
     template_name = 'companies/list.html'
     context_object_name = 'companies'
+    login_url = LOGIN_URL
 
 
-class CompanyDetailView(DetailView):
+class CompanyDetailView(LoginRequiredMixin, DetailView):
     model = Company
     template_name = 'companies/detail.html'
     context_object_name = 'company'
-    # TODO: Create template for company details
+    login_url = LOGIN_URL
 
 
-class CompanyCreateView(CreateView):
+class CompanyCreateView(LoginRequiredMixin, CreateView):
     model = Company
     template_name = "companies/create.html"
-    fields = ['name', 'description', 'status_id', 'picture_id']
+    form_class = CompanyForm
     success_url = '/dashboard/companies'
+    login_url = LOGIN_URL
 
     def get_context_data(self, **kwargs):
         context = super(CompanyCreateView, self).get_context_data(**kwargs)
@@ -141,19 +164,21 @@ class CompanyCreateView(CreateView):
         return context
 
 
-class CompanyDeleteView(DeleteView):
+class CompanyDeleteView(LoginRequiredMixin, DeleteView):
     model = Company
     template_name = 'companies/delete.html'
     success_url = '/dashboard/companies'
     context_object_name = 'company'
+    login_url = LOGIN_URL
 
 
-class CompanyUpdateView(UpdateView):
+class CompanyUpdateView(LoginRequiredMixin, UpdateView):
     model = Company
     template_name = 'companies/create.html'
-    fields = ['name', 'description', 'status_id', 'picture_id']
+    form_class = CompanyForm
     success_url = '/dashboard/companies'
     context_object_name = 'company'
+    login_url = LOGIN_URL
 
     def get_context_data(self, **kwargs):
         context = super(CompanyUpdateView, self).get_context_data(**kwargs)
@@ -161,17 +186,19 @@ class CompanyUpdateView(UpdateView):
         return context
 
 
-class PlacesView(ListView):
+class PlacesView(LoginRequiredMixin, ListView):
     model = Place
     template_name = 'places/list.html'
     context_object_name = 'places'
+    login_url = LOGIN_URL
 
 
-class PlaceCreateView(CreateView):
+class PlaceCreateView(LoginRequiredMixin, CreateView):
     model = Place
     template_name = 'places/create.html'
     fields = ['building_name', 'room_name']
     success_url = '/places'
+    login_url = LOGIN_URL
 
     def get_context_data(self, **kwargs):
         context = super(PlaceCreateView, self).get_context_data(**kwargs)
@@ -179,19 +206,21 @@ class PlaceCreateView(CreateView):
         return context
 
 
-class PlaceDeleteView(DeleteView):
+class PlaceDeleteView(LoginRequiredMixin, DeleteView):
     model = Place
     template_name = 'places/delete.html'
     success_url = '/places'
     context_object_name = 'place'
+    login_url = LOGIN_URL
 
 
-class PlaceUpdateView(UpdateView):
+class PlaceUpdateView(LoginRequiredMixin, UpdateView):
     model = Place
     template_name = 'places/create.html'
     fields = ['building_name', 'room_name']
     success_url = '/places'
     context_object_name = 'place'
+    login_url = LOGIN_URL
 
     def get_context_data(self, **kwargs):
         context = super(PlaceUpdateView, self).get_context_data(**kwargs)
@@ -199,17 +228,19 @@ class PlaceUpdateView(UpdateView):
         return context
 
 
-class PartnerStatusesView(ListView):
+class PartnerStatusesView(LoginRequiredMixin, ListView):
     model = PartnerStatus
     template_name = 'partner_statuses/list.html'
     context_object_name = 'statuses'
+    login_url = LOGIN_URL
 
 
-class PartnerStatusCreateView(CreateView):
+class PartnerStatusCreateView(LoginRequiredMixin, CreateView):
     model = PartnerStatus
     template_name = 'partner_statuses/create.html'
     fields = ['name']
     success_url = '/partner_statuses'
+    login_url = LOGIN_URL
 
     def get_context_data(self, **kwargs):
         context = super(PartnerStatusCreateView, self).get_context_data(**kwargs)
@@ -217,19 +248,21 @@ class PartnerStatusCreateView(CreateView):
         return context
 
 
-class PartnerStatusDeleteView(DeleteView):
+class PartnerStatusDeleteView(LoginRequiredMixin, DeleteView):
     model = PartnerStatus
     template_name = 'partner_statuses/delete.html'
     success_url = '/partner_statuses'
     context_object_name = 'status'
+    login_url = LOGIN_URL
 
 
-class PartnerStatusUpdateView(UpdateView):
+class PartnerStatusUpdateView(LoginRequiredMixin, UpdateView):
     model = PartnerStatus
     template_name = 'partner_statuses/create.html'
     fields = ['name']
     success_url = '/partner_statuses'
     context_object_name = 'status'
+    login_url = LOGIN_URL
 
     def get_context_data(self, **kwargs):
         context = super(PartnerStatusUpdateView, self).get_context_data(**kwargs)
@@ -237,22 +270,25 @@ class PartnerStatusUpdateView(UpdateView):
         return context
 
 
-class NewsesView(ListView):
+class NewsesView(LoginRequiredMixin, ListView):
     model = News
     template_name = 'news/list.html'
     context_object_name = 'newses'
+    login_url = LOGIN_URL
 
 
-class NewsDetailView(DetailView):
+class NewsDetailView(LoginRequiredMixin, DetailView):
     model = News
     template_name = 'news/detail.html'
     context_object_name = 'news'
+    login_url = LOGIN_URL
 
 
-class NewsCreateView(CreateView):
+class NewsCreateView(LoginRequiredMixin, CreateView):
     form_class = NewsForms
     template_name = 'news/create.html'
     success_url = '/dashboard/news'
+    login_url = LOGIN_URL
 
     def get_context_data(self, **kwargs):
         context = super(NewsCreateView, self).get_context_data(**kwargs)
@@ -263,18 +299,20 @@ class NewsCreateView(CreateView):
         return super(NewsCreateView, self).form_valid(form)
 
 
-class NewsDeleteView(DeleteView):
+class NewsDeleteView(LoginRequiredMixin, DeleteView):
     model = News
     template_name = 'news/delete.html'
     success_url = '/dashboard/news'
+    login_url = LOGIN_URL
 
 
-class NewsUpdateView(UpdateView):
+class NewsUpdateView(LoginRequiredMixin, UpdateView):
     model = News
     form_class = NewsForms
     template_name = 'news/create.html'
     success_url = '/dashboard/news'
     context_object_name = 'news'
+    login_url = LOGIN_URL
 
     def get_context_data(self, **kwargs):
         context = super(NewsUpdateView, self).get_context_data(**kwargs)
@@ -285,18 +323,20 @@ class NewsUpdateView(UpdateView):
         return super(NewsUpdateView, self).form_valid(form)
 
 
-class PicturesView(ListView):
+class PicturesView(LoginRequiredMixin, ListView):
     model = Picture
     template_name = 'pictures/list.html'
     context_object_name = 'pictures'
     queryset = Picture.objects.all().reverse()
+    login_url = LOGIN_URL
 
 
-class PictureCreateView(CreateView):
+class PictureCreateView(LoginRequiredMixin, CreateView):
     model = Picture
     template_name = 'pictures/create.html'
     fields = ['source']
     success_url = '/pictures'
+    login_url = LOGIN_URL
 
     def get_context_data(self, **kwargs):
         context = super(PictureCreateView, self).get_context_data(**kwargs)
@@ -304,7 +344,8 @@ class PictureCreateView(CreateView):
         return context
 
 
-class PictureDeleteView(DeleteView):
+class PictureDeleteView(LoginRequiredMixin, DeleteView):
     model = Picture
     template_name = 'pictures/delete.html'
     success_url = '/pictures'
+    login_url = LOGIN_URL
