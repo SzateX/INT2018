@@ -48,8 +48,6 @@ class LectureTestClass(TestCase):
         max_length = lecture._meta.get_field('title').max_length
         self.assertEquals(max_length, 200)
 
-    #TODO: place_id tests
-
 
 class PictureTestClass(TestCase):
     @classmethod
@@ -107,8 +105,6 @@ class CompanyTestClass(TestCase):
         company = Company.objects.get(id=1)
         self.assertTrue(company._meta.get_field('picture_id').blank)
 
-    #TODO: foreign keys tests
-
 
 class SpeakerTestClass(TestCase):
     @classmethod
@@ -149,8 +145,6 @@ class SpeakerTestClass(TestCase):
         speaker = Speaker.objects.get(id=1)
         self.assertTrue(speaker._meta.get_field('picture_id').blank)
 
-    # TODO: foreign keys tests
-
 
 class NewsTestClass(TestCase):
     @classmethod
@@ -161,8 +155,6 @@ class NewsTestClass(TestCase):
         news = News.objects.get(id=1)
         max_length = news._meta.get_field('title').max_length
         self.assertEquals(max_length, 512)
-
-    #TODO: tests for creation_date
 
     def test_publish_date_nullable(self):
         news = News.objects.get(id=1)
@@ -180,4 +172,3 @@ class NewsTestClass(TestCase):
         news = News.objects.get(id=1)
         self.assertTrue(news._meta.get_field('picture_id').blank)
 
-    #TODO: foreign key test
