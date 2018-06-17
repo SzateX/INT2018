@@ -6,26 +6,26 @@ from .models import *
 
 class NewsListView(ListView):
     model = News
-    template_name = 'news/list.html'
+    template_name = 'dashboard/news/list.html'
     context_object_name = 'news_list'
     queryset = model.objects.all().order_by('-publish_date')
 
 
 class NewsDetailView(DetailView):
     model = News
-    template_name = 'news/detail.html'
+    template_name = 'dashboard/news/detail.html'
     context_object_name = 'news'
 
 
 class CompanyDetailView(DetailView):
     model = Company
-    template_name = 'company/detail.html'
+    template_name = 'INT/company/detail.html'
     context_object_name = 'company'
 
 
 class SpeakerDetailView(DetailView):
     model = Speaker
-    template_name = 'speakers/detail.html'
+    template_name = 'dashboard/speakers/detail.html'
     context_object_name = 'speaker'
 
     def get_context_data(self, **kwargs):
@@ -37,7 +37,7 @@ class SpeakerDetailView(DetailView):
 
 
 class HomepageView(TemplateView):
-    template_name = 'index.html'
+    template_name = 'INT/index.html'
 
     def get_context_data(self, **kwargs):
         context = super(HomepageView, self).get_context_data(**kwargs)
@@ -47,4 +47,4 @@ class HomepageView(TemplateView):
 
 
 class KodziarzeView(TemplateView):
-    template_name = 'kodziarze_detail.html'
+    template_name = 'INT/kodziarze_detail.html'

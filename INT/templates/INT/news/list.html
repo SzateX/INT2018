@@ -1,0 +1,24 @@
+{% extends 'INT/base.html' %}
+{% load static %}
+{% block content %}
+            <div class="section int-dark-grey">
+                <div class="row container">
+                    {% for news in news_list %}
+                        <div class="col m3">
+                        <div class="card medium">
+                            <div class="card-image">
+                                <img src="{{news.picture_id.source.url}}">
+                            </div>
+                            <div class="card-content">
+                                <span class="card-title"><a href="{% url 'NewsDetail' news.pk %}">{{news.title}}</a></span>
+                            </div>
+                        </div>
+                        </div>
+                        {% if forloop.counter|divisibleby:4 %}
+                        </div>
+                        <div class="row container">
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+{% endblock %}

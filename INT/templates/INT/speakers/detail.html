@@ -1,0 +1,30 @@
+{% extends 'INT/base.html' %}
+{% load static %}
+{% block content %}
+            <div class="section int-dark-grey">
+                <div class="row container blue-grey-text text-lighten-5">
+                    <div class="col m4">
+                        <img src="{{speaker.picture_id.source.url}}" class="responsive-img circle"/>
+                    </div>
+                    <div class="col m8">
+                        <h2 class="header center">{{speaker.name}} {{speaker.surname}}</h2>
+                        <h5>Firma: {{speaker.company}}</h5>
+                        <p>{{speaker.description}}</p>
+                        <h5>Prowadzone prelekcje:</h5>
+                        {% for lecture in lectures %}
+                            <div class="card blue-grey lighten 3">
+                                <div class="card-content white-text" style="padding-top: 5px; padding-bottom: 5px;">
+                                    <span>{{lecture.lecture_id.title}}</span>
+                                </div>
+                                <div class="card-action">
+                                    <span style="margin: 0px auto 0px !important;">
+                                        <a class="blue-grey-text text-darken-4"><i class="fa fa-clock-o" aria-hidden="false"></i> {{lecture.lecture_id.begin_time|time:"H:i"}} - {{lecture.lecture_id.end_time|time:"H:i"}}</a>
+                                        <a class="blue-grey-text text-darken-4"><i class="fa fa-building-o" aria-hidden="false"></i> {{lecture.lecture_id.place_id.building_name}} {{lecture.lecture_id.place_id.room_name}}</a>
+                                    </span>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+{% endblock %}

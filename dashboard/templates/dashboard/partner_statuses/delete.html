@@ -1,0 +1,26 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+    <nav class="bg-blue-2">
+        <div class="nav-wrapper container">
+            <div class="col s12">
+                <a href="{% url 'dashboard' %}" class="breadcrumb">Dashboard</a>
+                <a href="{% url 'partner_status_list' %}" class="breadcrumb">Statusy</a>
+                <a href="" class="breadcrumb">{{ status.name }}</a>
+                <a href="#!" class="breadcrumb">Usuwanie statusu</a>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <form method="post">
+                    {% csrf_token %}
+                    <p>Czy na pewno chcesz usunąć status?</p>
+                    <button class="btn waves-effect waves-light bg-blue-2" type="submit" name="action">Potwierdzam
+                        <i class="material-icons right">send</i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

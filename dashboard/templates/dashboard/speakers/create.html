@@ -1,0 +1,31 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+    <nav class="bg-blue-2">
+        <div class="nav-wrapper container">
+            <div class="col s12">
+                {% if isEdited %}
+                    <a href="{% url 'dashboard' %}" class="breadcrumb">Dashboard</a>
+                    <a href="{% url 'speaker_list' %}" class="breadcrumb">Prelegenci</a>
+                    <a href="{% url 'speaker_detail' speaker.pk %}" class="breadcrumb">{{ speaker.name }} {{ speaker.surname }}</a>
+                    <a href="#!" class="breadcrumb">Edytowanie prelegenta</a>
+                {% else %}
+                    <a href="{% url 'dashboard' %}" class="breadcrumb">Dashboard</a>
+                    <a href="{% url 'speaker_list' %}" class="breadcrumb">Prelegenci</a>
+                    <a href="#!" class="breadcrumb">Dodawanie prelegenta</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn waves-effect waves-light bg-blue-2" type="submit" name="action">Zatwierdź
+                    <i class="material-icons right">send</i>
+                </button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+    {{ form.media }}
+    <nav class="bg-blue-2">
+        <div class="nav-wrapper container">
+            <div class="col s12">
+                {% if isEdited %}
+                    <a href="{% url 'dashboard' %}" class="breadcrumb">Dashboard</a>
+                    <a href="{% url 'news_list' %}" class="breadcrumb">Newsy</a>
+                    <a href="{% url 'news_detail' news.pk %}" class="breadcrumb">{{ news.title }}</a>
+                    <a href="#!" class="breadcrumb">Edytowanie newsa</a>
+                {% else %}
+                    <a href="{% url 'dashboard' %}" class="breadcrumb">Dashboard</a>
+                    <a href="{% url 'news_list' %}" class="breadcrumb">Newsy</a>
+                    <a href="#!" class="breadcrumb">Dodawanie newsa</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn waves-effect waves-light bg-blue-2" type="submit" name="action">Zatwierdź
+                    <i class="material-icons right">send</i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="/admin/jsi18n/"></script>
+    <script type="text/javascript" src="/static/admin/js/core.js"></script>
+    <script type="text/javascript" src="/static/admin/js/admin/RelatedObjectLookups.js"></script>
+    <script type="text/javascript" src="/static/admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/admin/js/jquery.init.js"></script>
+    <script type="text/javascript" src="/static/admin/js/actions.min.js"></script>
+    <script type="text/javascript" src="/static/admin/js/calendar.js"></script>
+    <script type="text/javascript" src="/static/admin/js/admin/DateTimeShortcuts.js"></script>
+{% endblock %}
