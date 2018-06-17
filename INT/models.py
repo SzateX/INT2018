@@ -61,8 +61,8 @@ class Speaker(models.Model):
 
 
 class SpeakerLecture(models.Model):
-    speaker_id = models.ForeignKey('Speaker', on_delete=models.CASCADE)
-    lecture_id = models.ForeignKey('Lecture', on_delete=models.CASCADE)
+    speaker_id = models.ForeignKey('Speaker', on_delete=models.CASCADE, related_name='speakers')
+    lecture_id = models.ForeignKey('Lecture', on_delete=models.CASCADE, related_name='lectures')
 
     def __str__(self):
         return "%s %s %s" % (self.pk, self.speaker_id, self.lecture_id)

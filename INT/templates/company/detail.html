@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+            <div class="section int-dark-grey">
+                <div class="row container blue-grey-text text-lighten-5">
+                    <div class="col m4">
+                        <img src="{{company.picture_id.source.url}}" class="responsive-img circle"/>
+                    </div>
+                    <div class="col m8">
+                        <h2 class="header center">{{company.name}}</h2>
+                        <p>{{company.description}}</p>
+                    </div>
+                </div>
+            </div>
+{% endblock %}

@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% load listutil %}
+{% load filtertags %}
+{% load static %}
+{% block content %}
+            <div class="section int-light-grey scrollspy" id="about">
+                <div class="row container blue-grey-text text-darken-4">
+                    <h2 class="header center">O KONFERENCJI</h2>
+                    <div style="text-align: justify">
+                        <p>INnovation Technology Conference (INT C) to wyjątkowe wydarzenie organizowane przez studentów Politechniki Rzeszowskiej, a dokładniej przez członków dwóch Kół Naukowych: Elektroniki i Technologii Informacyjnych (Rzeszowska Grupa IT) oraz Informatyków KOD (Rzeszowska Grupa.NET).</p>
+                        <p>Konferencja ta ma na celu zachęcić młodych miłośników branży IT do dalszego rozwoju w tym kierunku oraz wyjść naprzeciw oczekiwaniom współczesnego rynku pracy na podkarpaciu. Jeśli jesteś jednym z IT maniaków to wydarzenie to jest właśnie dla Ciebie!</p>
+                        <p>Nie ważne czy jesteś uczniem szkoły średniej, studiujesz na pierwszym lub na ostatnim roku – już teraz zadbaj o swoją przyszłość i weź udział w INnovation Technology Conference!</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="section int-dark-grey scrollspy" id="place">
+                <div class="row container blue-grey-text text-lighten-5">
+                    <h2 class="header center">MIEJSCE</h2>
+                    <div class="col l6">
+                        <h5>
+                            <p>Politechnika Rzeszowska im. Ignacego Łukasiewicza</p>
+                            <p>Budynek V<br></p>
+                            <p>Aleja Powstańców Warszawy 12, 35-959 Rzeszów</p>
+                        </h5>
+                    </div>
+                    <div class="col l6">
+                        <div class="map-responsive">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1662.2837065787344!2d21.988051671996395!3d50.01900336706858!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x473cfbae554b096b%3A0xfb1f78d1a4df278d!2sPolitechnika+Rzeszowska+im.+Ignacego+%C5%81ukasiewicza!5e0!3m2!1spl!2spl!4v1500660270096" width="600" height="600" frameborder="0" style="border:0" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="col s12">
+                        <div class="map-responsive" id="only-for-small">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1662.2837065787344!2d21.988051671996395!3d50.01900336706858!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x473cfbae554b096b%3A0xfb1f78d1a4df278d!2sPolitechnika+Rzeszowska+im.+Ignacego+%C5%81ukasiewicza!5e0!3m2!1spl!2spl!4v1500660270096" width="600" height="600" frameborder="0" style="border:0" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section int-light-grey scrollspy" id="lectures">
+                <div class="row container blue-grey-text text-darken-4">
+                    <h2 class="header center">AGENDA</h2>
+                    <div class="row fl">
+                        <div class="col m6">
+                            {% for lecture in lectures|rows:"2"|first %}
+                            <h6><i class="fa fa-clock-o" aria-hidden="false"></i> {{lecture.begin_time|time:"H:i"}} - {{lecture.end_time|time:"H:i"}}<span style="margin-left: 4em"></span> <i class="fa fa-building-o" aria-hidden="false"></i> {{lecture.place_id.building_name}}{{lecture.place_id.room_name}}</h6>
+                            <h5>{{lecture.title}}</h5>
+                                <p>
+                                {% for speaker in lecture|get_related_speakers %}
+                                    <a href="{% url 'SpeakerDetail' speaker.speaker_id.pk %}">{{speaker.speaker_id.name}} {{speaker.speaker_id.surname}}</a>
+                                    {% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                                </p>
+                                <!--{% for s in lecture.speakers.all %}
+                                    {% for speaker in s.speaker_id.all %}
+                                         <p><a href="{% url 'SpeakerDetail' speaker.pk %}">{{speaker.name}} {{speaker.surname}}</a></p>
+                                    {% endfor %}
+                                {% endfor %} -->
+                            <div class="divider"></div>
+                            {% endfor %}
+                        </div>
+                        <div class="separator"></div>
+                        <div class="col m6">
+                            {% for lecture in lectures|rows:"2"|last %}
+                            <h6><i class="fa fa-clock-o" aria-hidden="false"></i>{{lecture.begin_time|time:"H:i"}} - {{lecture.end_time|time:"H:i"}}<span style="margin-left: 4em"></span> <i class="fa fa-building-o" aria-hidden="false"></i> {{lecture.place_id.building_name}}{{lecture.place_id.room_name}}</h6>
+                            <h5>{{lecture.title}}</h5>
+                                <p>
+                                {% for speaker in lecture|get_related_speakers %}
+                                    <a href="{% url 'SpeakerDetail' speaker.speaker_id.pk %}">{{speaker.speaker_id.name}} {{speaker.speaker_id.surname}}</a>
+                                    {% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                                </p>
+                            <div class="divider"></div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="parallax-container">
+                <div class="parallax"><img src="{% static 'frontpage/img/organizatorzy.jpg' %}"></div>
+            </div>
+            <div class="section int-dark-grey scrollspy" id="organizers">
+                <div class="row container blue-grey-text text-lighten-5">
+                    <h2 class="header center">ORGANIZATORZY</h2>
+                    <div class="row center">
+                        <div class="col m6 l3">
+                            <div class="card">
+                                <div class="card-image">
+                                    <img src="{% static 'frontpage/img/organizatorzy/rzitlogo.jpg' %}">
+                                </div>
+                                <div class="card-content blue-grey lighten-5 blue-grey-text text-darken-4">
+                                    <a href="https://www.facebook.com/rzeszowska.grupa.it/?fref=ts">Rzeszowska Grupa IT</a><br>&nbsp;
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col m6 l3">
+                            <div class="card">
+                                <div class="card-image">
+                                    <img src="{% static 'frontpage/img/organizatorzy/dolina.jpg' %}">
+                                </div>
+                                <div class="card-content blue-grey lighten-5 blue-grey-text text-darken-4">
+                                    <a href="https://www.facebook.com/DolinaWiedzy">Fundacja Wspierania Edukacji przy Stowarzyszeniu Dolina Lotnicza</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col m6 l3">
+                            <div class="card">
+                                <div class="card-image">
+                                    <img src="{% static 'frontpage/img/organizatorzy/generator.jpg' %}">
+                                </div>
+                                <div class="card-content blue-grey lighten-5 blue-grey-text text-darken-4">
+                                    <a href="https://www.facebook.com/generatorinspiracji/">Fundacja Generator Inspiracji</a><br>&nbsp;
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col m6 l3">
+                            <div class="card">
+                                <div class="card-image">
+                                    <img src="{% static 'frontpage/img/organizatorzy/dotnet.jpg' %}">
+                                </div>
+                                <div class="card-content blue-grey lighten-5 blue-grey-text text-darken-4">
+                                    <a href="https://www.facebook.com/skni.kod/?fref=ts">Rzeszowska Grupa .NET</a><br>&nbsp;
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section int-light-grey scrollspy" id="partners">
+                <div class="row container blue-grey-text text-darken-4">
+                    <h2 class="header center">PARTNERZY</h2>
+                    <div class="row center">
+                        <div class="partnercenter">
+                            {% for partner in partners %}
+                                <div class="col m2">
+                                    <a href="{% url 'CompanyDetail' partner.pk %}"><img src="{{partner.picture_id.source.url}}" alt="" class="circle responsive-img"></a>
+                                    <a href="{% url 'CompanyDetail' partner.pk %}">{{partner.name}}</a>
+                                </div>
+                                {% if forloop.counter|divisibleby:6 %}
+                                    </div></div>
+                                    <div class="row center">
+                                        <div class="partnercenter">
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+{% endblock %}
