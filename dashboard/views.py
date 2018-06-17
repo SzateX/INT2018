@@ -33,6 +33,7 @@ class SpeakerDetailView(LoginRequiredMixin, DetailView):
     model = Speaker
     template_name = 'dashboard/speakers/detail.html'
     context_object_name = 'speaker'
+    login_url = LOGIN_URL
 
 
 class SpeakerCreateView(LoginRequiredMixin, CreateView):
