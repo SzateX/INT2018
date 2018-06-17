@@ -6,6 +6,7 @@ import factory.django
 from django.contrib.auth.models import User
 from django.urls import reverse
 
+from dashboard.forms import SpeakerForm
 from dashboard.views import DashboardView, Speaker
 
 
@@ -86,3 +87,57 @@ class DashboardSpeakerDetailViewTest(TestCase):
         resp = self.client.get(reverse('speaker_detail', args=[1]))
         obj = Speaker.objects.get(pk=1)
         self.assertEqual(resp.context['speaker'], obj)
+
+
+class DashboardSpeakerCreateViewTest(TestCase):
+    def setUp(self):
+        self.instance_obj = Speaker(name='Speaker', surname='Surname', description='Description', pk=1)
+        self.user = UserFactory()
+        self.reverse_url = reverse('speaker_create')
+
+    def test_redirects_if_not_logged(self):
+        resp = self.client.get(self.reverse_url, follow=True)
+        self.assertRedirects(resp, reverse('login') + "?next=" + urllib.parse.quote(self.reverse_url, ""))
+
+    def test_uses_correct_template(self):
+        self.client.force_login(self.user)
+        resp = self.client.get(self.reverse_url)
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.context['user'], self.user)
+        self.assertTemplateUsed(resp, 'dashboard/speakers/create.html')
+
+    def test_is_save_work(self):
+        self.client.force_login(self.user)
+        data_dict = {'name': self.instance_obj.name, 'surname': self.instance_obj.surname, 'description': self.instance_obj.description}
+        resp = self.client.post(self.reverse_url, data_dict, follow=True)
+        self.assertRedirects(resp, reverse('speaker_list'))
+        obj = Speaker.objects.get(pk=1)
+        self.assertEqual(self.instance_obj, obj)
+
+
+class DashboardSpeakerEditViewTest(TestCase):
+    def setUp(self):
+        self.instance_obj = Speaker(name='Speaker', surname='Surname', description='Description', pk=1)
+        Speaker.objects.create(name='Speaker', surname='Surname', description='Description', pk=1)
+        self.instance_obj.name = 'Speaker2'
+        self.user = UserFactory()
+        self.reverse_url = reverse('speaker_edit', args=[1])
+
+    def test_redirects_if_not_logged(self):
+        resp = self.client.get(self.reverse_url, follow=True)
+        self.assertRedirects(resp, reverse('login') + "?next=" + urllib.parse.quote(self.reverse_url, ""))
+
+    def test_uses_correct_template(self):
+        self.client.force_login(self.user)
+        resp = self.client.get(self.reverse_url)
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.context['user'], self.user)
+        self.assertTemplateUsed(resp, 'dashboard/speakers/create.html')
+
+    def test_is_save_work(self):
+        self.client.force_login(self.user)
+        data_dict = {'name': self.instance_obj.name, 'surname': self.instance_obj.surname, 'description': self.instance_obj.description}
+        resp = self.client.post(self.reverse_url, data_dict, follow=True)
+        self.assertRedirects(resp, reverse('speaker_list'))
+        obj = Speaker.objects.get(pk=1)
+        self.assertEqual(self.instance_obj, obj)

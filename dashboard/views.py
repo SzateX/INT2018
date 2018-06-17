@@ -39,7 +39,7 @@ class SpeakerDetailView(LoginRequiredMixin, DetailView):
 class SpeakerCreateView(LoginRequiredMixin, CreateView):
     model = Speaker
     template_name = 'dashboard/speakers/create.html'
-    fields = ['name', 'surname', 'company_id', 'picture_id', 'description']
+    form_class = SpeakerForm
     success_url = '/dashboard/speakers'
     login_url = LOGIN_URL
 

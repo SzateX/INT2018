@@ -40,7 +40,7 @@ class LectureForm(forms.ModelForm):
 
 
 class SpeakerForm(forms.ModelForm):
-    picture_id = forms.ModelChoiceField(Picture.objects.all(), widget=PictureSelect())
+    picture_id = forms.ModelChoiceField(Picture.objects.all(), widget=PictureSelect(), required=False)
 
     class Meta:
         model = Speaker
