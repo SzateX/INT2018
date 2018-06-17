@@ -198,7 +198,7 @@ class PlaceCreateView(LoginRequiredMixin, CreateView):
     model = Place
     template_name = 'dashboard/places/create.html'
     fields = ['building_name', 'room_name']
-    success_url = '/places'
+    success_url = '/dashboard/places'
     login_url = LOGIN_URL
 
     def get_context_data(self, **kwargs):
@@ -210,7 +210,7 @@ class PlaceCreateView(LoginRequiredMixin, CreateView):
 class PlaceDeleteView(LoginRequiredMixin, DeleteView):
     model = Place
     template_name = 'dashboard/places/delete.html'
-    success_url = '/places'
+    success_url = '/dashboard/places'
     context_object_name = 'place'
     login_url = LOGIN_URL
 
@@ -219,7 +219,7 @@ class PlaceUpdateView(LoginRequiredMixin, UpdateView):
     model = Place
     template_name = 'dashboard/places/create.html'
     fields = ['building_name', 'room_name']
-    success_url = '/places'
+    success_url = '/dashboard/places'
     context_object_name = 'place'
     login_url = LOGIN_URL
 
