@@ -1,7 +1,16 @@
-from INT.models import News, Speaker, Lecture, SpeakerLecture
+from INT.models import News, Speaker, Lecture, SpeakerLecture, Picture
 from django import forms
 from martor.fields import MartorFormField
 from django.contrib.admin.widgets import AdminDateWidget
+
+
+class PictureSelect(forms.Select):
+    def create_option(self, name, value, label, selected, index, subindex=None, attrs=None):
+        option_dict = super(PictureSelect, self).create_option(name, value, label, selected, index, subindex, attrs)
+        if option_dict['value']:
+            option_dict['attrs']['data-icon'] = Picture.objects.get(
+                id=option_dict['value']).source.url
+        return option_dict
 
 
 class NewsForms(forms.ModelForm):
@@ -26,3 +35,15 @@ class LectureForm(forms.ModelForm):
             sl = SpeakerLecture.objects.filter(lecture_id = kwargs['instance'])
             self.fields["speakers"].initial = [s.speaker_id.pk for s in sl]
             print(self.fields["speakers"].initial)
+
+
+class SpeakerForm(forms.ModelForm):
+    picture_id = forms.ModelChoiceField(Picture.objects.all(), widget=PictureSelect())
+
+    def __init__(self, *args, **kwargs):
+        super(SpeakerForm, self).__init__(*args, **kwargs)
+        print("Dupa w inicie")
+
+    class Meta:
+        model = Speaker
+        fields = ('name', 'surname', 'description', 'picture_id', 'company_id')

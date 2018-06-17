@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.views.generic import *
 from INT.models import *
-from .forms import NewsForms, LectureForm
+from .forms import NewsForms, LectureForm, SpeakerForm
 
 
 class DashboardView(TemplateView):
@@ -42,9 +42,10 @@ class SpeakerDeleteView(DeleteView):
 
 class SpeakerUpdateView(UpdateView):
     model = Speaker
-    fields = ['name', 'surname', 'company_id', 'picture_id', 'description']
+    # fields = ['name', 'surname', 'company_id', 'picture_id', 'description']
     template_name = 'speakers/create.html'
     success_url = '/dashboard/speakers'
+    form_class = SpeakerForm
 
     def get_context_data(self, **kwargs):
         context = super(SpeakerUpdateView, self).get_context_data(**kwargs)
