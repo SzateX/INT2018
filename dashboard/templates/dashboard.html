@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="row center-row">
+            <div class="col m3">
+                <div class="card">
+                    <div class="card-image">
+                        <a href="{% url 'speaker_list' %}"><img class="responsive-img" src="http://via.placeholder.com/150x150">
+                            <span class="card-title center-align width-100">Prelegenci</span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col m3">
+                <div class="card">
+                    <div class="card-image">
+                        <a href="{% url 'lecture_list' %}"><img class="responsive-img" src="http://via.placeholder.com/150x150">
+                            <span class="card-title center-align width-100">Prelekcje</span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col m3">
+                <div class="card">
+                    <div class="card-image">
+                        <a href="{% url 'company_list' %}"><img class="responsive-img" src="http://via.placeholder.com/150x150">
+                            <span class="card-title center-align width-100">Firmy</span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col m3">
+                <div class="card">
+                    <div class="card-image">
+                        <a href="{% url 'place_list' %}"><img class="responsive-img" src="http://via.placeholder.com/150x150">
+                            <span class="card-title center-align width-100">Miejsca</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row center-row">
+            <div class="col m3">
+                <div class="card">
+                    <div class="card-image">
+                        <a href="{% url 'partner_status_list' %}"><img class="responsive-img" src="http://via.placeholder.com/150x150">
+                            <span class="card-title center-align width-100">Statusy</span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col m3">
+                <div class="card">
+                    <div class="card-image">
+                        <a href="{% url 'news_list' %}"><img class="responsive-img" src="http://via.placeholder.com/150x150">
+                            <span class="card-title center-align width-100">Newsy</span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col m3">
+                <div class="card">
+                    <div class="card-image">
+                        <a href="{% url 'picture_list' %}"><img class="responsive-img" src="http://via.placeholder.com/150x150">
+                            <span class="card-title center-align width-100">Obrazki</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

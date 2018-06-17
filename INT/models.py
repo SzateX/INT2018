@@ -25,8 +25,11 @@ class Lecture(models.Model):
 class Picture(models.Model):
     source = models.ImageField(null=True, blank=True) #TODO: check the field type, correct if needed
 
+    """def __str__(self):
+        return "%s" % self.pk"""
+
     def __str__(self):
-        return "%s" % self.pk
+        return '{}'.format(self.source)
 
 
 class PartnerStatus(models.Model):
