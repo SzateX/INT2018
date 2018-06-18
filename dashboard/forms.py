@@ -16,8 +16,8 @@ class PictureSelect(forms.Select):
 
 class NewsForms(forms.ModelForm):
     content = MartorFormField()
-    picture_id = forms.ModelChoiceField(Picture.objects.all(), widget=PictureSelect())
-    publish_date = forms.CharField(widget=forms.TextInput(attrs={'class': 'datepicker'}))
+    picture_id = forms.ModelChoiceField(Picture.objects.all(), widget=PictureSelect(), required=False)
+    publish_date = forms.CharField(widget=forms.TextInput(attrs={'class': 'datepicker'}), required=False)
 
     class Meta:
         model = News
@@ -40,7 +40,7 @@ class LectureForm(forms.ModelForm):
 
 
 class SpeakerForm(forms.ModelForm):
-    picture_id = forms.ModelChoiceField(Picture.objects.all(), widget=PictureSelect())
+    picture_id = forms.ModelChoiceField(Picture.objects.all(), widget=PictureSelect(), required=False)
 
     class Meta:
         model = Speaker
@@ -48,7 +48,7 @@ class SpeakerForm(forms.ModelForm):
 
 
 class CompanyForm(forms.ModelForm):
-    picture_id = forms.ModelChoiceField(Picture.objects.all(), widget=PictureSelect())
+    picture_id = forms.ModelChoiceField(Picture.objects.all(), widget=PictureSelect(), required=False)
 
     class Meta:
         model = Company
