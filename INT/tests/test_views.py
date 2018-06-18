@@ -20,12 +20,12 @@ class NewsListViewTestClass(TestCase):
         self.assertEqual(resp.status_code, 200)
 
     def test_view_uses_correct_template(self):
-        resp = self.client.get(reverse('NewsList'))
+        resp = self.client.get(reverse('FrontNewsList'))
         self.assertEqual(resp.status_code, 200)
-        self.assertTemplateUsed(resp, 'news/list.html')
+        self.assertTemplateUsed(resp, 'INT/news/list.html')
 
     def test_returns_correct_data(self):
-        resp = self.client.get(reverse('NewsList'))
+        resp = self.client.get(reverse('FrontNewsList'))
         obj_list = News.objects.all().order_by('creation_date')
         self.assertQuerysetEqual(resp.context['news_list'].order_by('creation_date'),
                                  map(repr, obj_list))
@@ -41,12 +41,12 @@ class NewsDetailViewTestClass(TestCase):
         self.assertEqual(resp.status_code, 200)
 
     def test_view_uses_correct_template(self):
-        resp = self.client.get(reverse('NewsDetail', args=[1]))
+        resp = self.client.get(reverse('FrontNewsDetail', args=[1]))
         self.assertEqual(resp.status_code, 200)
-        self.assertTemplateUsed(resp, 'news/detail.html')
+        self.assertTemplateUsed(resp, 'INT/news/detail.html')
 
     def test_returns_correct_data(self):
-        resp = self.client.get(reverse('NewsDetail', args=[1]))
+        resp = self.client.get(reverse('FrontNewsDetail', args=[1]))
         obj = News.objects.get(pk=1)
         self.assertEqual(resp.context['news'], obj)
 
@@ -61,12 +61,12 @@ class CompanyDetailViewTestClass(TestCase):
         self.assertEqual(resp.status_code, 200)
 
     def test_view_uses_correct_template(self):
-        resp = self.client.get(reverse('CompanyDetail', args=[1]))
+        resp = self.client.get(reverse('FrontCompanyDetail', args=[1]))
         self.assertEqual(resp.status_code, 200)
-        self.assertTemplateUsed(resp, 'company/detail.html')
+        self.assertTemplateUsed(resp, 'INT/company/detail.html')
 
     def test_returns_correct_data(self):
-        resp = self.client.get(reverse('CompanyDetail', args=[1]))
+        resp = self.client.get(reverse('FrontCompanyDetail', args=[1]))
         obj = Company.objects.get(pk=1)
         self.assertEqual(resp.context['company'], obj)
 
@@ -84,12 +84,12 @@ class SpeakerDetailViewTestClass(TestCase):
         self.assertEqual(resp.status_code, 200)
 
     def test_view_uses_correct_template(self):
-        resp = self.client.get(reverse('SpeakerDetail', args=[1]))
+        resp = self.client.get(reverse('FrontSpeakerDetail', args=[1]))
         self.assertEqual(resp.status_code, 200)
-        self.assertTemplateUsed(resp, 'speakers/detail.html')
+        self.assertTemplateUsed(resp, 'INT/speakers/detail.html')
 
     def test_returns_correct_data(self):
-        resp = self.client.get(reverse('SpeakerDetail', args=[1]))
+        resp = self.client.get(reverse('FrontSpeakerDetail', args=[1]))
         obj = Speaker.objects.get(pk=1)
         ls = SpeakerLecture.objects.filter(speaker_id=obj)
         self.assertEqual(resp.context['speaker'], obj)
@@ -111,12 +111,12 @@ class HomepageViewTestClass(TestCase):
         self.assertEqual(resp.status_code, 200)
 
     def test_view_uses_correct_template(self):
-        resp = self.client.get(reverse('Homepage'))
+        resp = self.client.get(reverse('FrontHomepage'))
         self.assertEqual(resp.status_code, 200)
-        self.assertTemplateUsed(resp, 'index.html')
+        self.assertTemplateUsed(resp, 'INT/index.html')
 
     def test_returns_correct_data(self):
-        resp = self.client.get(reverse('Homepage'))
+        resp = self.client.get(reverse('FrontHomepage'))
         lecture_list = Lecture.objects.all().order_by('begin_time')
         partner_list = Company.objects.all().order_by('name')
         self.assertQuerysetEqual(resp.context['lectures'].order_by('begin_time'),
@@ -132,6 +132,6 @@ class KodziarzeViewTestClass(TestCase):
         self.assertEqual(resp.status_code, 200)
 
     def test_view_uses_correct_template(self):
-        resp = self.client.get(reverse('Kodziarze'))
+        resp = self.client.get(reverse('FrontKodziarze'))
         self.assertEqual(resp.status_code, 200)
-        self.assertTemplateUsed(resp, 'kodziarze_detail.html')
+        self.assertTemplateUsed(resp, 'INT/kodziarze_detail.html')

@@ -66,24 +66,24 @@
         </script>
         <main>
             <div class="center container">
-                    <a href="{% url 'Homepage' %}"><img class="responsive-img logo" src="{% static 'frontpage/img/logo_for_web.png' %}"></a><br>
+                    <a href="{% url 'FrontHomepage' %}"><img class="responsive-img logo" src="{% static 'frontpage/img/logo_for_web.png' %}"></a><br>
             </div>
             <nav class="nav-center int-green" role="navigation">
                 <div class="nav-wrapper container">
                     <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                     <ul class="hide-on-med-and-down">
-                        <li><a href="{% url 'Homepage'%}#place">Miejsce</a></li>
-                        <li><a href="{% url 'Homepage'%}#lectures">Agenda</a></li>
-                        <li><a href="{% url 'Homepage'%}#organizers">Organizatorzy</a></li>
-                        <li><a href="{% url 'Homepage'%}#partners">Partnerzy</a></li>
-                        <li><a href="{% url 'NewsList' %}">Aktualności</a></li>
+                        <li><a href="{% url 'FrontHomepage' %}#place">Miejsce</a></li>
+                        <li><a href="{% url 'FrontHomepage' %}#lectures">Agenda</a></li>
+                        <li><a href="{% url 'FrontHomepage' %}#organizers">Organizatorzy</a></li>
+                        <li><a href="{% url 'FrontHomepage' %}#partners">Partnerzy</a></li>
+                        <li><a href="{% url 'FrontNewsList' %}">Aktualności</a></li>
                     </ul>
                     <ul class="side-nav" id="mobile-demo">
-                        <li><a href="{% url 'Homepage'%}#place">Miejsce</a></li>
-                        <li><a href="{% url 'Homepage'%}#lectures">Agenda</a></li>
-                        <li><a href="{% url 'Homepage'%}#organizers">Organizatorzy</a></li>
-                        <li><a href="{% url 'Homepage'%}#partners">Partnerzy</a></li>
-                        <li><a href="{% url 'NewsList' %}">Aktualności</a></li>
+                        <li><a href="{% url 'FrontHomepage' %}#place">Miejsce</a></li>
+                        <li><a href="{% url 'FrontHomepage' %}#lectures">Agenda</a></li>
+                        <li><a href="{% url 'FrontHomepage' %}#organizers">Organizatorzy</a></li>
+                        <li><a href="{% url 'FrontHomepage' %}#partners">Partnerzy</a></li>
+                        <li><a href="{% url 'FrontNewsList' %}">Aktualności</a></li>
                     </ul>
                 </div>
             </nav>
@@ -111,7 +111,7 @@
           </div>
           <div class="footer-copyright">
             <div class="container">
-                © 2018 <a href="{% url 'Kodziarze'%}">kodziarze.TK</a>
+                © 2018 <a href="{% url 'FrontKodziarze' %}">kodziarze.TK</a>
             </div>
           </div>
     </footer>

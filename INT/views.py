@@ -6,14 +6,14 @@ from .models import *
 
 class NewsListView(ListView):
     model = News
-    template_name = 'dashboard/news/list.html'
+    template_name = 'INT/news/list.html'
     context_object_name = 'news_list'
     queryset = model.objects.all().order_by('-publish_date')
 
 
 class NewsDetailView(DetailView):
     model = News
-    template_name = 'dashboard/news/detail.html'
+    template_name = 'INT/news/detail.html'
     context_object_name = 'news'
 
 
@@ -25,14 +25,13 @@ class CompanyDetailView(DetailView):
 
 class SpeakerDetailView(DetailView):
     model = Speaker
-    template_name = 'dashboard/speakers/detail.html'
+    template_name = 'INT/speakers/detail.html'
     context_object_name = 'speaker'
 
     def get_context_data(self, **kwargs):
         context = super(SpeakerDetailView, self).get_context_data(**kwargs)
         ls = SpeakerLecture.objects.filter(speaker_id=self.object)
         context['lectures'] = ls
-        print(context['lectures'])
         return context
 
 

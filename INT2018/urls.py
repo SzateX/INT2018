@@ -24,7 +24,7 @@ from INT2018 import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path(r'dashboard/', include('dashboard.urls')),
     path(r'', include('INT.urls')),
+    path(r'dashboard/', include('dashboard.urls')),
     url(r'^martor/', include('martor.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
