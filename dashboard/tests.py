@@ -1,16 +1,14 @@
 import urllib.parse
 
-from django.test import TestCase
-from django.test import RequestFactory
 import factory.django
 from django.contrib.auth.models import User
+from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
 
 from INT.models import Place, PartnerStatus, News, Lecture, \
     Company
-from dashboard.forms import SpeakerForm, LectureForm
-from dashboard.views import DashboardView, Speaker
+from dashboard.views import Speaker
 
 
 class UserFactory(factory.DjangoModelFactory):
@@ -504,9 +502,6 @@ class DashboardLectureCreateViewTest(TestCase):
         self.assertRedirects(resp, reverse('lecture_list'))
         obj = Lecture.objects.get(pk=1)
         self.assertEqual(self.instance_obj, obj)
-        """test_obj = SpeakerLecture(pk=1, lecture_id=self.instance_obj, speaker_id=self.speaker_obj)
-        assigment = SpeakerLecture.objects.get(lecture_id=self.instance_obj)
-        self.assertEqual(assigment, test_obj)"""
 
 
 class DashboardLectureEditViewTest(TestCase):
@@ -553,10 +548,6 @@ class DashboardLectureEditViewTest(TestCase):
         self.assertRedirects(resp, reverse('lecture_list'))
         obj = Lecture.objects.get(pk=1)
         self.assertEqual(self.instance_obj, obj)
-        """test_obj = SpeakerLecture(pk=1, lecture_id=self.instance_obj,
-                                  speaker_id=self.speaker_obj)
-        assigment = SpeakerLecture.objects.get(lecture_id=self.instance_obj)
-        self.assertEqual(assigment, test_obj)"""
 
 
 class DashboardCompanyListViewTest(TestCase):
