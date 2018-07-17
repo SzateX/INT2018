@@ -11,15 +11,15 @@
                         <h5>Firma: {{speaker.company}}</h5>
                         <p>{{speaker.description}}</p>
                         <h5>Prowadzone prelekcje:</h5>
-                        {% for lecture in lectures %}
+                        {% for lecture in speaker.lectures.all %}
                             <div class="card blue-grey lighten 3">
                                 <div class="card-content white-text" style="padding-top: 5px; padding-bottom: 5px;">
-                                    <span>{{lecture.lecture_id.title}}</span>
+                                    <span>{{lecture.title}}</span>
                                 </div>
                                 <div class="card-action">
                                     <span style="margin: 0px auto 0px !important;">
-                                        <a class="blue-grey-text text-darken-4"><i class="fa fa-clock-o" aria-hidden="false"></i> {{lecture.lecture_id.begin_time|time:"H:i"}} - {{lecture.lecture_id.end_time|time:"H:i"}}</a>
-                                        <a class="blue-grey-text text-darken-4"><i class="fa fa-building-o" aria-hidden="false"></i> {{lecture.lecture_id.place_id.building_name}} {{lecture.lecture_id.place_id.room_name}}</a>
+                                        <a class="blue-grey-text text-darken-4"><i class="fa fa-clock-o" aria-hidden="false"></i> {{lecture.begin_time|time:"H:i"}} - {{lecture.end_time|time:"H:i"}}</a>
+                                        <a class="blue-grey-text text-darken-4"><i class="fa fa-building-o" aria-hidden="false"></i> {{lecture.place_id.building_name}} {{lecture.place_id.room_name}}</a>
                                     </span>
                                 </div>
                             </div>

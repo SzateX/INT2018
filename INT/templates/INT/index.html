@@ -1,6 +1,5 @@
 {% extends 'INT/base.html' %}
 {% load listutil %}
-{% load filtertags %}
 {% load static %}
 {% block content %}
             <div class="section int-light-grey scrollspy" id="about">
@@ -45,8 +44,8 @@
                             <h6><i class="fa fa-clock-o" aria-hidden="false"></i> {{lecture.begin_time|time:"H:i"}} - {{lecture.end_time|time:"H:i"}}<span style="margin-left: 4em"></span> <i class="fa fa-building-o" aria-hidden="false"></i> {{lecture.place_id.building_name}}{{lecture.place_id.room_name}}</h6>
                             <h5>{{lecture.title}}</h5>
                                 <p>
-                                {% for speaker in lecture|get_related_speakers %}
-                                    <a href="{% url 'FrontSpeakerDetail' speaker.speaker_id.pk %}">{{speaker.speaker_id.name}} {{speaker.speaker_id.surname}}</a>
+                                {% for speaker in lecture.speakers.all %}
+                                    <a href="{% url 'FrontSpeakerDetail' speaker.pk %}">{{speaker.name}} {{speaker.surname}}</a>
                                     {% if not forloop.last %}, {% endif %}
                                 {% endfor %}
                                 </p>
@@ -64,8 +63,8 @@
                             <h6><i class="fa fa-clock-o" aria-hidden="false"></i>{{lecture.begin_time|time:"H:i"}} - {{lecture.end_time|time:"H:i"}}<span style="margin-left: 4em"></span> <i class="fa fa-building-o" aria-hidden="false"></i> {{lecture.place_id.building_name}}{{lecture.place_id.room_name}}</h6>
                             <h5>{{lecture.title}}</h5>
                                 <p>
-                                {% for speaker in lecture|get_related_speakers %}
-                                    <a href="{% url 'FrontSpeakerDetail' speaker.speaker_id.pk %}">{{speaker.speaker_id.name}} {{speaker.speaker_id.surname}}</a>
+                                {% for speaker in lecture.speakers.all %}
+                                    <a href="{% url 'FrontSpeakerDetail' speaker.pk %}">{{speaker.name}} {{speaker.surname}}</a>
                                     {% if not forloop.last %}, {% endif %}
                                 {% endfor %}
                                 </p>

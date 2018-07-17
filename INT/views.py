@@ -28,12 +28,6 @@ class SpeakerDetailView(DetailView):
     template_name = 'INT/speakers/detail.html'
     context_object_name = 'speaker'
 
-    def get_context_data(self, **kwargs):
-        context = super(SpeakerDetailView, self).get_context_data(**kwargs)
-        ls = SpeakerLecture.objects.filter(speaker_id=self.object)
-        context['lectures'] = ls
-        return context
-
 
 class HomepageView(TemplateView):
     template_name = 'INT/index.html'

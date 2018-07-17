@@ -97,12 +97,12 @@ class LectureCreateView(LoginRequiredMixin, CreateView):
         context['isEdited'] = False
         return context
 
-    def form_valid(self, form):
+"""    def form_valid(self, form):
         self.object = form.save()
         for speaker in form.cleaned_data["speakers"]:
             s = SpeakerLecture.objects.get_or_create(lecture_id=self.object, speaker_id=speaker)
 
-        return HttpResponseRedirect(self.get_success_url())
+        return HttpResponseRedirect(self.get_success_url())"""
 
 
 class LectureDeleteView(LoginRequiredMixin, DeleteView):
@@ -126,7 +126,7 @@ class LectureUpdateView(LoginRequiredMixin, UpdateView):
         context['isEdited'] = True
         return context
     
-    def form_valid(self, form):
+"""    def form_valid(self, form):
         self.object = form.save()
         q = SpeakerLecture.objects.filter(lecture_id=self.object)
         for attribution in q:
@@ -136,7 +136,7 @@ class LectureUpdateView(LoginRequiredMixin, UpdateView):
             s = SpeakerLecture.objects.get_or_create(lecture_id=self.object, speaker_id=speaker)
 
         return HttpResponseRedirect(self.get_success_url())
-
+"""
 
 class CompanyView(LoginRequiredMixin, ListView):
     model = Company

@@ -1,4 +1,5 @@
-from INT.models import News, Speaker, Lecture, SpeakerLecture, Picture, Company
+from INT.models import News, Speaker, Lecture, Picture, Company
+#from INT.models import SpeakerLecture
 from django import forms
 from martor.fields import MartorFormField
 from django.contrib.admin.widgets import AdminDateWidget
@@ -25,18 +26,18 @@ class NewsForms(forms.ModelForm):
 
 
 class LectureForm(forms.ModelForm):
-    speakers = forms.ModelMultipleChoiceField(queryset=Speaker.objects.all(), required=False)
+    #speakers = forms.ModelMultipleChoiceField(queryset=Speaker.objects.all(), required=False)
 
     class Meta:
         model = Lecture
-        fields = ('begin_time', 'end_time', 'description', 'title', 'place_id')
+        fields = ('begin_time', 'end_time', 'description', 'title', 'place_id', 'speakers')
 
-    def __init__(self, *args, **kwargs):
+"""    def __init__(self, *args, **kwargs):
         super(LectureForm, self).__init__(*args, **kwargs)
         if kwargs['instance'] is not None:
             sl = SpeakerLecture.objects.filter(lecture_id = kwargs['instance'])
             self.fields["speakers"].initial = [s.speaker_id.pk for s in sl]
-            print(self.fields["speakers"].initial)
+            print(self.fields["speakers"].initial)"""
 
 
 class SpeakerForm(forms.ModelForm):

@@ -1,4 +1,4 @@
-from django import template
+"""from django import template
 from INT.models import Speaker, SpeakerLecture
 register = template.Library()
 
@@ -8,4 +8,4 @@ def get_related_speakers(obj):
     return sl
 
 
-register.filter(get_related_speakers)
+register.filter(get_related_speakers)"""

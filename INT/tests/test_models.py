@@ -2,7 +2,7 @@ from unittest import mock
 from django.core.files import File
 from django.test import TestCase
 from django.utils import timezone
-from INT.models import Place, Lecture, Picture, PartnerStatus, Company, Speaker, SpeakerLecture, News
+from INT.models import Place, Lecture, Picture, PartnerStatus, Company, Speaker, News
 
 
 class PlaceTestClass(TestCase):
