@@ -73,3 +73,12 @@ class News(models.Model):
 
     def __str__(self):
         return "%s" % self.title
+
+
+class Change(models.Model):
+    model = models.CharField(max_length=256)
+    type_of_change = models.CharField(max_length=20)
+    content = models.TextField()
+
+    def __str__(self):
+        return "%s %s %s" % (self.model, self.type_of_change, self.content)

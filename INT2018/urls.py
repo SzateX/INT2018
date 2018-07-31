@@ -27,4 +27,5 @@ urlpatterns = [
     path(r'', include('INT.urls')),
     path(r'dashboard/', include('dashboard.urls')),
     url(r'^martor/', include('martor.urls')),
+    path(r'restapi/', include('restapi.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
