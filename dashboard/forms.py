@@ -5,6 +5,16 @@ from martor.fields import MartorFormField
 from django.contrib.admin.widgets import AdminDateWidget
 
 
+class MySplitDateTimeWidget(forms.SplitDateTimeWidget):
+    def __init__(self, attrs=None, date_format=None, time_format=None):
+        date_class = attrs.pop('date_class')
+        time_class = attrs.pop('time_class')
+
+        widgets = (forms.DateInput(attrs={'class' : date_class}, format=date_format),
+                   forms.TimeInput(attrs={'class' : time_class}, format=time_format))
+        super(forms.SplitDateTimeWidget, self).__init__(widgets, attrs)
+
+
 class PictureSelect(forms.Select):
     def create_option(self, name, value, label, selected, index, subindex=None, attrs=None):
         option_dict = super(PictureSelect, self).create_option(name, value, label, selected, index, subindex, attrs)
@@ -27,6 +37,11 @@ class NewsForms(forms.ModelForm):
 
 class LectureForm(forms.ModelForm):
     #speakers = forms.ModelMultipleChoiceField(queryset=Speaker.objects.all(), required=False)
+    #begin_time = forms.DateTimeField(widget=MySplitDateTimeWidget(attrs={'date_class': 'datepicker', 'time_class': 'timepicker'}))
+    #end_time = forms.DateTimeField(widget=MySplitDateTimeWidget(attrs={'date_class': 'datepicker', 'time_class': 'timepicker'}))
+
+    begin_time = forms.SplitDateTimeField(widget=MySplitDateTimeWidget(attrs={'date_class': 'datepicker', 'time_class': 'timepicker'}))
+    end_time = forms.SplitDateTimeField(widget=MySplitDateTimeWidget(attrs={'date_class': 'datepicker', 'time_class': 'timepicker'}))
 
     class Meta:
         model = Lecture

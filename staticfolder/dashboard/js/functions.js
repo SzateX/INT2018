@@ -14,6 +14,12 @@ $(document).ready(
         $('select').formSelect();
 
         $('.datepicker').datepicker({format:'yyyy-mm-dd'});
+        $('.timepicker').timepicker({twelveHour:false, format: "HH:ii:SS"});
+
+        $('.timepicker').on('change', function() {
+            receivedVal = $(this).val();
+        $(this).val(receivedVal + ":00");
+    });
 
         $('.sidenav').sidenav();
     }
