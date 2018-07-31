@@ -251,3 +251,4 @@ db.sqlite3
 
 
 mediafolder/*
+INT/migrations/*
