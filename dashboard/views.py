@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 from django.views.generic import *
 from INT.models import *
 from .forms import NewsForms, LectureForm, SpeakerForm, CompanyForm
+from restapi.serializers import *
 
 
 LOGIN_URL = '/dashboard/login'
@@ -48,6 +49,12 @@ class SpeakerCreateView(LoginRequiredMixin, CreateView):
         context['isEdited'] = False
         return context
 
+    def form_valid(self, form):
+        self.object = form.save()
+        serializer = SpeakerSerializer(self.object)
+        change_object = Change.objects.create(model="Speaker", type_of_change="create", content=serializer.data)
+        return HttpResponseRedirect(self.get_success_url())
+
 
 class SpeakerDeleteView(LoginRequiredMixin, DeleteView):
     model = Speaker
@@ -55,6 +62,14 @@ class SpeakerDeleteView(LoginRequiredMixin, DeleteView):
     success_url = '/dashboard/speakers'
     context_object_name = 'speaker'
     login_url = LOGIN_URL
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        serializer = SpeakerSerializer(self.object)
+        change_object = Change.objects.create(model="Speaker", type_of_change="delete", content=serializer.data)
+        self.object.delete()
+        return HttpResponseRedirect(success_url)
 
 
 class SpeakerUpdateView(LoginRequiredMixin, UpdateView):
@@ -69,6 +84,12 @@ class SpeakerUpdateView(LoginRequiredMixin, UpdateView):
         context = super(SpeakerUpdateView, self).get_context_data(**kwargs)
         context['isEdited'] = True
         return context
+
+    def form_valid(self, form):
+        self.object = form.save()
+        serializer = SpeakerSerializer(self.object)
+        change_object = Change.objects.create(model="Speaker", type_of_change="update", content=serializer.data)
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class LecturesView(LoginRequiredMixin, ListView):
@@ -96,6 +117,12 @@ class LectureCreateView(LoginRequiredMixin, CreateView):
         context = super(LectureCreateView, self).get_context_data(**kwargs)
         context['isEdited'] = False
         return context
+    
+    def form_valid(self, form):
+        self.object = form.save()
+        serializer = LectureSerializer(self.object)
+        change_object = Change.objects.create(model="Lecture", type_of_change="create", content=serializer.data)
+        return HttpResponseRedirect(self.get_success_url())
 
 """    def form_valid(self, form):
         self.object = form.save()
@@ -111,6 +138,14 @@ class LectureDeleteView(LoginRequiredMixin, DeleteView):
     success_url = '/dashboard/lecture'
     context_object_name = 'lecture'
     login_url = LOGIN_URL
+    
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        serializer = LectureSerializer(self.object)
+        change_object = Change.objects.create(model="Lecture", type_of_change="delete", content=serializer.data)
+        self.object.delete()
+        return HttpResponseRedirect(success_url)
 
 
 class LectureUpdateView(LoginRequiredMixin, UpdateView):
@@ -125,6 +160,12 @@ class LectureUpdateView(LoginRequiredMixin, UpdateView):
         context = super(LectureUpdateView, self).get_context_data(**kwargs)
         context['isEdited'] = True
         return context
+    
+    def form_valid(self, form):
+        self.object = form.save()
+        serializer = LectureSerializer(self.object)
+        change_object = Change.objects.create(model="Lecture", type_of_change="update", content=serializer.data)
+        return HttpResponseRedirect(self.get_success_url())
     
 """    def form_valid(self, form):
         self.object = form.save()
@@ -164,6 +205,12 @@ class CompanyCreateView(LoginRequiredMixin, CreateView):
         context['isEdited'] = False
         return context
 
+    def form_valid(self, form):
+        self.object = form.save()
+        serializer = CompanySerializer(self.object)
+        change_object = Change.objects.create(model="Company", type_of_change="create", content=serializer.data)
+        return HttpResponseRedirect(self.get_success_url())
+
 
 class CompanyDeleteView(LoginRequiredMixin, DeleteView):
     model = Company
@@ -171,6 +218,14 @@ class CompanyDeleteView(LoginRequiredMixin, DeleteView):
     success_url = '/dashboard/companies'
     context_object_name = 'company'
     login_url = LOGIN_URL
+    
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        serializer = CompanySerializer(self.object)
+        change_object = Change.objects.create(model="Company", type_of_change="delete", content=serializer.data)
+        self.object.delete()
+        return HttpResponseRedirect(success_url)
 
 
 class CompanyUpdateView(LoginRequiredMixin, UpdateView):
@@ -185,6 +240,12 @@ class CompanyUpdateView(LoginRequiredMixin, UpdateView):
         context = super(CompanyUpdateView, self).get_context_data(**kwargs)
         context['isEdited'] = True
         return context
+    
+    def form_valid(self, form):
+        self.object = form.save()
+        serializer = CompanySerializer(self.object)
+        change_object = Change.objects.create(model="Company", type_of_change="update", content=serializer.data)
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class PlacesView(LoginRequiredMixin, ListView):
@@ -205,6 +266,12 @@ class PlaceCreateView(LoginRequiredMixin, CreateView):
         context = super(PlaceCreateView, self).get_context_data(**kwargs)
         context['isEdited'] = False
         return context
+    
+    def form_valid(self, form):
+        self.object = form.save()
+        serializer = PlaceSerializer(self.object)
+        change_object = Change.objects.create(model="Place", type_of_change="create", content=serializer.data)
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class PlaceDeleteView(LoginRequiredMixin, DeleteView):
@@ -213,6 +280,14 @@ class PlaceDeleteView(LoginRequiredMixin, DeleteView):
     success_url = '/dashboard/places'
     context_object_name = 'place'
     login_url = LOGIN_URL
+    
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        serializer = PlaceSerializer(self.object)
+        change_object = Change.objects.create(model="Place", type_of_change="delete", content=serializer.data)
+        self.object.delete()
+        return HttpResponseRedirect(success_url)
 
 
 class PlaceUpdateView(LoginRequiredMixin, UpdateView):
@@ -227,6 +302,12 @@ class PlaceUpdateView(LoginRequiredMixin, UpdateView):
         context = super(PlaceUpdateView, self).get_context_data(**kwargs)
         context['isEdited'] = True
         return context
+    
+    def form_valid(self, form):
+        self.object = form.save()
+        serializer = PlaceSerializer(self.object)
+        change_object = Change.objects.create(model="Place", type_of_change="update", content=serializer.data)
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class PartnerStatusesView(LoginRequiredMixin, ListView):
@@ -242,6 +323,12 @@ class PartnerStatusCreateView(LoginRequiredMixin, CreateView):
     fields = ['name']
     success_url = '/dashboard/partner_statuses'
     login_url = LOGIN_URL
+    
+    def form_valid(self, form):
+        self.object = form.save()
+        serializer = PartnerStatusSerializer(self.object)
+        change_object = Change.objects.create(model="PartnerStatus", type_of_change="create", content=serializer.data)
+        return HttpResponseRedirect(self.get_success_url())
 
     def get_context_data(self, **kwargs):
         context = super(PartnerStatusCreateView, self).get_context_data(**kwargs)
@@ -255,6 +342,14 @@ class PartnerStatusDeleteView(LoginRequiredMixin, DeleteView):
     success_url = '/dashboard/partner_statuses'
     context_object_name = 'status'
     login_url = LOGIN_URL
+    
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        serializer = PartnerStatusSerializer(self.object)
+        change_object = Change.objects.create(model="PartnerStatus", type_of_change="delete", content=serializer.data)
+        self.object.delete()
+        return HttpResponseRedirect(success_url)
 
 
 class PartnerStatusUpdateView(LoginRequiredMixin, UpdateView):
@@ -264,6 +359,14 @@ class PartnerStatusUpdateView(LoginRequiredMixin, UpdateView):
     success_url = '/dashboard/partner_statuses'
     context_object_name = 'status'
     login_url = LOGIN_URL
+    
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        serializer = PartnerStatusSerializer(self.object)
+        change_object = Change.objects.create(model="PartnerStatus", type_of_change="delete", content=serializer.data)
+        self.object.delete()
+        return HttpResponseRedirect(success_url)
 
     def get_context_data(self, **kwargs):
         context = super(PartnerStatusUpdateView, self).get_context_data(**kwargs)
@@ -297,7 +400,13 @@ class NewsCreateView(LoginRequiredMixin, CreateView):
         return context
     
     def form_valid(self, form):
-        return super(NewsCreateView, self).form_valid(form)
+        self.object = form.save()
+        serializer = NewsSerializer(self.object)
+        change_object = Change.objects.create(model="News", type_of_change="create", content=serializer.data)
+        return HttpResponseRedirect(self.get_success_url())
+    
+    """def form_valid(self, form):
+        return super(NewsCreateView, self).form_valid(form)"""
 
 
 class NewsDeleteView(LoginRequiredMixin, DeleteView):
@@ -305,6 +414,14 @@ class NewsDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'dashboard/news/delete.html'
     success_url = '/dashboard/news'
     login_url = LOGIN_URL
+    
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        serializer = NewsSerializer(self.object)
+        change_object = Change.objects.create(model="News", type_of_change="delete", content=serializer.data)
+        self.object.delete()
+        return HttpResponseRedirect(success_url)
 
 
 class NewsUpdateView(LoginRequiredMixin, UpdateView):
@@ -321,7 +438,13 @@ class NewsUpdateView(LoginRequiredMixin, UpdateView):
         return context
     
     def form_valid(self, form):
-        return super(NewsUpdateView, self).form_valid(form)
+        self.object = form.save()
+        serializer = NewsSerializer(self.object)
+        change_object = Change.objects.create(model="News", type_of_change="update", content=serializer.data)
+        return HttpResponseRedirect(self.get_success_url())
+    
+    """def form_valid(self, form):
+        return super(NewsUpdateView, self).form_valid(form)"""
 
 
 class PicturesView(LoginRequiredMixin, ListView):
@@ -343,6 +466,12 @@ class PictureCreateView(LoginRequiredMixin, CreateView):
         context = super(PictureCreateView, self).get_context_data(**kwargs)
         context['isEdited'] = False
         return context
+    
+    def form_valid(self, form):
+        self.object = form.save()
+        serializer = PictureSerializer(self.object)
+        change_object = Change.objects.create(model="Picture", type_of_change="create", content=serializer.data)
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class PictureDeleteView(LoginRequiredMixin, DeleteView):
@@ -350,3 +479,11 @@ class PictureDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'dashboard/pictures/delete.html'
     success_url = '/pictures'
     login_url = LOGIN_URL
+    
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        serializer = PictureSerializer(self.object)
+        change_object = Change.objects.create(model="Picture", type_of_change="delete", content=serializer.data)
+        self.object.delete()
+        return HttpResponseRedirect(success_url)
