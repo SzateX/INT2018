@@ -29,7 +29,7 @@ class CompanySerializer(serializers.ModelSerializer):
 class SpeakerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Speaker
-        fields = ('id', 'name', 'surname', 'description', 'picture_id', 'company_id')
+        fields = ('id', 'name', 'surname', 'description', 'picture_id', 'company_id', 'lectures')
 
 
 class LectureSerializer(serializers.ModelSerializer):
