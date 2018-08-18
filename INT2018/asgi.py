@@ -1,7 +1,7 @@
 import os
-from channels.layers import get_channel_layer
+from channels.routing import get_default_application
 import django
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'INT2018.settings')
 django.setup()
-application = get_channel_layer()
+application = get_default_application()
