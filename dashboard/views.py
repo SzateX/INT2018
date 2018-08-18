@@ -459,7 +459,7 @@ class PictureCreateView(LoginRequiredMixin, CreateView):
     model = Picture
     template_name = 'dashboard/pictures/create.html'
     fields = ['source']
-    success_url = '/pictures'
+    success_url = '/dashboard/pictures'
     login_url = LOGIN_URL
 
     def get_context_data(self, **kwargs):
@@ -477,7 +477,7 @@ class PictureCreateView(LoginRequiredMixin, CreateView):
 class PictureDeleteView(LoginRequiredMixin, DeleteView):
     model = Picture
     template_name = 'dashboard/pictures/delete.html'
-    success_url = '/pictures'
+    success_url = '/dashboard/pictures'
     login_url = LOGIN_URL
     
     def delete(self, request, *args, **kwargs):

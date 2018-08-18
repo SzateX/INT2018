@@ -360,7 +360,7 @@ class DashboardNewsDetailViewTest(TestCase):
 
 class DashboardNewsCreateViewTest(TestCase):
     def setUp(self):
-        self.instance_obj = News(title='a', content='b', publish_date='2012-01-01', pk=1)
+        self.instance_obj = News(title='a', content='b', publish_date=timezone.now(), pk=1)
         self.user = UserFactory()
         self.reverse_url = reverse('news_create')
 
@@ -377,7 +377,14 @@ class DashboardNewsCreateViewTest(TestCase):
 
     def test_is_save_work(self):
         self.client.force_login(self.user)
-        data_dict = {'title': self.instance_obj.title, 'content': self.instance_obj.content, 'publish_date': self.instance_obj.publish_date}
+        #data_dict = {'title': self.instance_obj.title, 'content': self.instance_obj.content, 'publish_date': self.instance_obj.publish_date}
+        data_dict = {'title': self.instance_obj.title,
+                     'content': self.instance_obj.content,
+                     'publish_date_0': self.instance_obj.publish_date.strftime(
+                         "%Y-%m-%d"),
+                     'publish_date_1': self.instance_obj.publish_date.strftime(
+                         "%H:%M:%S")
+                     }
         resp = self.client.post(self.reverse_url, data_dict, follow=True)
         self.assertRedirects(resp, reverse('news_list'))
         obj = News.objects.get(pk=1)
@@ -386,7 +393,7 @@ class DashboardNewsCreateViewTest(TestCase):
 
 class DashboardNewsEditViewTest(TestCase):
     def setUp(self):
-        self.instance_obj = News(title='a', content='b', publish_date='2012-01-01', pk=1)
+        self.instance_obj = News(title='a', content='b', publish_date=timezone.now(), pk=1)
         News.objects.create(title='a', content='c')
         self.user = UserFactory()
         self.reverse_url = reverse('news_edit', args=[1])
@@ -406,7 +413,10 @@ class DashboardNewsEditViewTest(TestCase):
         self.client.force_login(self.user)
         data_dict = {'title': self.instance_obj.title,
                      'content': self.instance_obj.content,
-                     'publish_date': self.instance_obj.publish_date}
+                     'publish_date_0': self.instance_obj.publish_date.strftime(
+                         "%Y-%m-%d"),
+                     'publish_date_1': self.instance_obj.publish_date.strftime(
+                         "%H:%M:%S")}
         resp = self.client.post(self.reverse_url, data_dict, follow=True)
         self.assertRedirects(resp, reverse('news_list'))
         obj = News.objects.get(pk=1)
@@ -493,8 +503,12 @@ class DashboardLectureCreateViewTest(TestCase):
         self.client.force_login(self.user)
         data_dict = {'title': self.instance_obj.title,
                      'description': self.instance_obj.description,
-                     'begin_time': self.instance_obj.begin_time.strftime("%Y-%m-%d %H:%M:%S"),
-                     'end_time': self.instance_obj.end_time.strftime("%Y-%m-%d %H:%M:%S"),
+                     'begin_time_0': self.instance_obj.begin_time.strftime("%Y-%m-%d"),
+                     'begin_time_1': self.instance_obj.begin_time.strftime(
+                         "%H:%M:%S"),
+                     'end_time_0': self.instance_obj.end_time.strftime("%Y-%m-%d"),
+                     'end_time_1': self.instance_obj.begin_time.strftime(
+                         "%H:%M:%S"),
                      'place_id': self.instance_obj.place_id.pk,
                      'speakers': [self.speaker_obj.pk]}
         resp = self.client.post(self.reverse_url, data_dict, follow=True)
@@ -538,10 +552,14 @@ class DashboardLectureEditViewTest(TestCase):
         self.client.force_login(self.user)
         data_dict = {'title': self.instance_obj.title,
                      'description': self.instance_obj.description,
-                     'begin_time': self.instance_obj.begin_time.strftime(
-                         "%Y-%m-%d %H:%M:%S"),
-                     'end_time': self.instance_obj.end_time.strftime(
-                         "%Y-%m-%d %H:%M:%S"),
+                     'begin_time_0': self.instance_obj.begin_time.strftime(
+                         "%Y-%m-%d"),
+                     'begin_time_1': self.instance_obj.begin_time.strftime(
+                         "%H:%M:%S"),
+                     'end_time_0': self.instance_obj.end_time.strftime(
+                         "%Y-%m-%d"),
+                     'end_time_1': self.instance_obj.begin_time.strftime(
+                         "%H:%M:%S"),
                      'place_id': self.instance_obj.place_id.pk,
                      'speakers': [self.speaker_obj.pk]}
         resp = self.client.post(self.reverse_url, data_dict, follow=True)

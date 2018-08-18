@@ -64,8 +64,8 @@ class Lecture(models.Model):
 class News(models.Model):
     content = MartorField()
     title = models.CharField(max_length=512)
-    creation_date = models.DateField(default=timezone.now)
-    publish_date = models.DateField(null=True, blank=True)
+    creation_date = models.DateTimeField(default=timezone.now)
+    publish_date = models.DateTimeField(null=True, blank=True)
     picture_id = models.ForeignKey('Picture', null=True, blank=True, on_delete=models.CASCADE)
 
     class Meta:

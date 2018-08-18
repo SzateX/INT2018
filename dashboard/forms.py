@@ -28,7 +28,7 @@ class PictureSelect(forms.Select):
 class NewsForms(forms.ModelForm):
     content = MartorFormField()
     picture_id = forms.ModelChoiceField(Picture.objects.all(), widget=PictureSelect(), required=False)
-    publish_date = forms.CharField(widget=forms.TextInput(attrs={'class': 'datepicker'}), required=False)
+    publish_date = forms.SplitDateTimeField(widget=MySplitDateTimeWidget(attrs={'date_class': 'datepicker', 'time_class': 'timepicker'}))
 
     class Meta:
         model = News
