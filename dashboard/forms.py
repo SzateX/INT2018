@@ -1,4 +1,5 @@
 from INT.models import News, Speaker, Lecture, Picture, Company
+from .models import CommunicationChannel, TypeOfNotification
 #from INT.models import SpeakerLecture
 from django import forms
 from martor.fields import MartorFormField
@@ -36,23 +37,12 @@ class NewsForms(forms.ModelForm):
 
 
 class LectureForm(forms.ModelForm):
-    #speakers = forms.ModelMultipleChoiceField(queryset=Speaker.objects.all(), required=False)
-    #begin_time = forms.DateTimeField(widget=MySplitDateTimeWidget(attrs={'date_class': 'datepicker', 'time_class': 'timepicker'}))
-    #end_time = forms.DateTimeField(widget=MySplitDateTimeWidget(attrs={'date_class': 'datepicker', 'time_class': 'timepicker'}))
-
     begin_time = forms.SplitDateTimeField(widget=MySplitDateTimeWidget(attrs={'date_class': 'datepicker', 'time_class': 'timepicker'}))
     end_time = forms.SplitDateTimeField(widget=MySplitDateTimeWidget(attrs={'date_class': 'datepicker', 'time_class': 'timepicker'}))
 
     class Meta:
         model = Lecture
         fields = ('begin_time', 'end_time', 'description', 'title', 'place_id', 'speakers')
-
-"""    def __init__(self, *args, **kwargs):
-        super(LectureForm, self).__init__(*args, **kwargs)
-        if kwargs['instance'] is not None:
-            sl = SpeakerLecture.objects.filter(lecture_id = kwargs['instance'])
-            self.fields["speakers"].initial = [s.speaker_id.pk for s in sl]
-            print(self.fields["speakers"].initial)"""
 
 
 class SpeakerForm(forms.ModelForm):
@@ -69,3 +59,9 @@ class CompanyForm(forms.ModelForm):
     class Meta:
         model = Company
         fields = ('name', 'description', 'picture_id', 'status_id')
+
+
+class NotifyForm(forms.Form):
+    channel = forms.ModelChoiceField(CommunicationChannel.objects.all(), required=True)
+    type_of_notification = forms.ModelChoiceField(TypeOfNotification.objects.all(), required=True)
+    content = forms.CharField(widget=forms.Textarea(), required=True)
