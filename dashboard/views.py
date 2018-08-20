@@ -14,6 +14,12 @@ LOGIN_URL = '/dashboard/login'
 
 class DashboardLoginView(LoginView):
     template_name = 'dashboard/login.html'
+    
+    def get_redirect_url(self):
+        redirect_url = super(DashboardLoginView, self).get_redirect_url()
+        if redirect_url == '':
+            return '/dashboard/'
+        return redirect_url
 
 
 class DashboardLogoutView(LogoutView):
