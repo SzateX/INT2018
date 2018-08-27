@@ -5,7 +5,7 @@ from django.utils.timezone import datetime
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
-from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.webdriver.support import expected_conditions as EC
 
 from INT2018 import settings
@@ -113,6 +113,129 @@ class SpeakersTests(StaticLiveServerTestCase):
                 self.assertEqual(columns[4].text, company.name)
                 found = True
         self.assertTrue(found, "Not found speaker in list")
+
+    def test_create_speaker(self):
+        speakers_button: WebElement = WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located(
+                (By.XPATH, '//span[contains(text(), "Prelegenci")]')))
+        speakers_button.click()
+        WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located(
+                (By.XPATH, '//a[(contains(text(), "Prelegenci")) and (contains(@class, "breadcrumb"))]')))
+        create_button: WebElement = WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located(
+                (By.XPATH, '//a[contains(text(), "Dodaj")]')))
+        create_button.click()
+        WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located(
+                (By.XPATH, '//a[(contains(text(), "Dodawanie prelegenta")) and (contains(@class, "breadcrumb"))]')))
+        form: WebElement = WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located((By.TAG_NAME, 'form')))
+        name = form.find_element_by_name('name')
+        name.send_keys('Janusz')
+        surname = form.find_element_by_name('surname')
+        surname.send_keys('Kowal')
+        description = form.find_element_by_name('description')
+        description.send_keys('Opis')
+        submit_button: WebElement = WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located(
+                (By.XPATH, '//button[contains(text(), "Zatwierdź")]')))
+        submit_button.click()
+        WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located(
+                (By.XPATH, '//a[(contains(text(), "Prelegenci")) and (contains(@class, "breadcrumb"))]')))
+        speaker = models.Speaker.objects.get(name='Janusz')
+        table: WebElement = WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located((By.TAG_NAME, 'table')))
+        tbody = table.find_element_by_tag_name('tbody')
+        rows = tbody.find_elements_by_tag_name('tr')
+        found = False
+        for row in rows:
+            columns = row.find_elements_by_tag_name('td')
+            if int(columns[0].text) == speaker.pk:
+                self.assertEqual(columns[2].text, speaker.name)
+                self.assertEqual(columns[3].text, speaker.surname)
+                found = True
+        self.assertTrue(found, "Not found speaker in list")
+
+    def test_edit_speaker(self):
+        speaker = models.Speaker.objects.create(name="Testowy", surname="Prelegent", description="Fajny opis")
+        speakers_button: WebElement = WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located(
+                (By.XPATH, '//span[contains(text(), "Prelegenci")]')))
+        speakers_button.click()
+        WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located(
+                (By.XPATH, '//a[(contains(text(), "Prelegenci")) and (contains(@class, "breadcrumb"))]')))
+        edit_button: WebElement = WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located(
+                (By.XPATH, '//i[contains(text(), "edit")]')))
+        edit_button.click()
+        WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located(
+                (By.XPATH, '//a[(contains(text(), "Edytowanie prelegenta")) and (contains(@class, "breadcrumb"))]')))
+        form: WebElement = WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located((By.TAG_NAME, 'form')))
+        name = form.find_element_by_name('name')
+        name.send_keys('Janusz')
+        surname = form.find_element_by_name('surname')
+        surname.send_keys('Kowal')
+        description = form.find_element_by_name('description')
+        description.send_keys('Opis')
+        submit_button: WebElement = WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located(
+                (By.XPATH, '//button[contains(text(), "Zatwierdź")]')))
+        submit_button.click()
+        WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located(
+                (By.XPATH, '//a[(contains(text(), "Prelegenci")) and (contains(@class, "breadcrumb"))]')))
+        speaker2 = models.Speaker.objects.get(pk=speaker.pk)
+        table: WebElement = WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located((By.TAG_NAME, 'table')))
+        tbody = table.find_element_by_tag_name('tbody')
+        rows = tbody.find_elements_by_tag_name('tr')
+        found = False
+        for row in rows:
+            columns = row.find_elements_by_tag_name('td')
+            if int(columns[0].text) == speaker2.pk:
+                self.assertEqual(columns[2].text, speaker2.name)
+                self.assertEqual(columns[3].text, speaker2.surname)
+                found = True
+        self.assertTrue(found, "Not found speaker in list")
+
+    def test_delete_speaker(self):
+        speaker = models.Speaker.objects.create(name="Testowy", surname="Prelegent", description="Fajny opis")
+        speakers_button: WebElement = WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located(
+                (By.XPATH, '//span[contains(text(), "Prelegenci")]')))
+        speakers_button.click()
+        WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located(
+                (By.XPATH, '//a[(contains(text(), "Prelegenci")) and (contains(@class, "breadcrumb"))]')))
+        delete_button: WebElement = WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located(
+                (By.XPATH, '//i[contains(text(), "remove_circle")]')))
+        delete_button.click()
+        WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located(
+                (By.XPATH, '//a[(contains(text(), "Usuwanie prelegenta")) and (contains(@class, "breadcrumb"))]')))
+        submit_button: WebElement = WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located(
+                (By.XPATH, '//button[contains(text(), "Potwierdzam")]')))
+        submit_button.click()
+        WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located(
+                (By.XPATH, '//a[(contains(text(), "Prelegenci")) and (contains(@class, "breadcrumb"))]')))
+        table: WebElement = WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located((By.TAG_NAME, 'table')))
+        tbody = table.find_element_by_tag_name('tbody')
+        rows = tbody.find_elements_by_tag_name('tr')
+        found = True
+        for row in rows:
+            columns = row.find_elements_by_tag_name('td')
+            if int(columns[0].text) == speaker.pk:
+                found = False
+        self.assertTrue(found, "Speaker found on the list")
 
 
 class LecturesTests(StaticLiveServerTestCase):
