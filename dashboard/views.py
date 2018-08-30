@@ -8,6 +8,7 @@ from .forms import NewsForms, LectureForm, SpeakerForm, CompanyForm, NotifyForm
 from restapi.serializers import *
 from channels.layers import get_channel_layer
 import json
+from rest_framework.renderers import JSONRenderer
 
 LOGIN_URL = '/dashboard/login'
 
@@ -60,7 +61,10 @@ class SpeakerCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         self.object = form.save()
         serializer = SpeakerSerializer(self.object)
-        change_object = Change.objects.create(model="Speaker", type_of_change="create", content=serializer.data)
+        renderer = JSONRenderer()
+        renderer.charset = "utf-8"
+        json = renderer.render(serializer.data).decode("utf-8")
+        change_object = Change.objects.create(model="Speaker", type_of_change="create", content=json)
         return HttpResponseRedirect(self.get_success_url())
 
 
@@ -75,7 +79,10 @@ class SpeakerDeleteView(LoginRequiredMixin, DeleteView):
         self.object = self.get_object()
         success_url = self.get_success_url()
         serializer = SpeakerSerializer(self.object)
-        change_object = Change.objects.create(model="Speaker", type_of_change="delete", content=serializer.data)
+        renderer = JSONRenderer()
+        renderer.charset = "utf-8"
+        json = renderer.render(serializer.data).decode("utf-8")
+        change_object = Change.objects.create(model="Speaker", type_of_change="delete", content=json)
         self.object.delete()
         return HttpResponseRedirect(success_url)
 
@@ -96,7 +103,10 @@ class SpeakerUpdateView(LoginRequiredMixin, UpdateView):
     def form_valid(self, form):
         self.object = form.save()
         serializer = SpeakerSerializer(self.object)
-        change_object = Change.objects.create(model="Speaker", type_of_change="update", content=serializer.data)
+        renderer = JSONRenderer()
+        renderer.charset = "utf-8"
+        json = renderer.render(serializer.data).decode("utf-8")
+        change_object = Change.objects.create(model="Speaker", type_of_change="update", content=json)
         return HttpResponseRedirect(self.get_success_url())
 
 
@@ -129,7 +139,10 @@ class LectureCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         self.object = form.save()
         serializer = LectureSerializer(self.object)
-        change_object = Change.objects.create(model="Lecture", type_of_change="create", content=serializer.data)
+        renderer = JSONRenderer()
+        renderer.charset = "utf-8"
+        json = renderer.render(serializer.data).decode("utf-8")
+        change_object = Change.objects.create(model="Lecture", type_of_change="create", content=json)
         return HttpResponseRedirect(self.get_success_url())
 
 """    def form_valid(self, form):
@@ -151,7 +164,10 @@ class LectureDeleteView(LoginRequiredMixin, DeleteView):
         self.object = self.get_object()
         success_url = self.get_success_url()
         serializer = LectureSerializer(self.object)
-        change_object = Change.objects.create(model="Lecture", type_of_change="delete", content=serializer.data)
+        renderer = JSONRenderer()
+        renderer.charset = "utf-8"
+        json = renderer.render(serializer.data).decode("utf-8")
+        change_object = Change.objects.create(model="Lecture", type_of_change="delete", content=json)
         self.object.delete()
         return HttpResponseRedirect(success_url)
 
@@ -172,7 +188,10 @@ class LectureUpdateView(LoginRequiredMixin, UpdateView):
     def form_valid(self, form):
         self.object = form.save()
         serializer = LectureSerializer(self.object)
-        change_object = Change.objects.create(model="Lecture", type_of_change="update", content=serializer.data)
+        renderer = JSONRenderer()
+        renderer.charset = "utf-8"
+        json = renderer.render(serializer.data).decode("utf-8")
+        change_object = Change.objects.create(model="Lecture", type_of_change="update", content=json)
         return HttpResponseRedirect(self.get_success_url())
     
 """    def form_valid(self, form):
@@ -216,7 +235,10 @@ class CompanyCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         self.object = form.save()
         serializer = CompanySerializer(self.object)
-        change_object = Change.objects.create(model="Company", type_of_change="create", content=serializer.data)
+        renderer = JSONRenderer()
+        renderer.charset = "utf-8"
+        json = renderer.render(serializer.data).decode("utf-8")
+        change_object = Change.objects.create(model="Company", type_of_change="create", content=json)
         return HttpResponseRedirect(self.get_success_url())
 
 
@@ -231,7 +253,10 @@ class CompanyDeleteView(LoginRequiredMixin, DeleteView):
         self.object = self.get_object()
         success_url = self.get_success_url()
         serializer = CompanySerializer(self.object)
-        change_object = Change.objects.create(model="Company", type_of_change="delete", content=serializer.data)
+        renderer = JSONRenderer()
+        renderer.charset = "utf-8"
+        json = renderer.render(serializer.data).decode("utf-8")
+        change_object = Change.objects.create(model="Company", type_of_change="delete", content=json)
         self.object.delete()
         return HttpResponseRedirect(success_url)
 
@@ -252,7 +277,10 @@ class CompanyUpdateView(LoginRequiredMixin, UpdateView):
     def form_valid(self, form):
         self.object = form.save()
         serializer = CompanySerializer(self.object)
-        change_object = Change.objects.create(model="Company", type_of_change="update", content=serializer.data)
+        renderer = JSONRenderer()
+        renderer.charset = "utf-8"
+        json = renderer.render(serializer.data).decode("utf-8")
+        change_object = Change.objects.create(model="Company", type_of_change="update", content=json)
         return HttpResponseRedirect(self.get_success_url())
 
 
@@ -278,7 +306,10 @@ class PlaceCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         self.object = form.save()
         serializer = PlaceSerializer(self.object)
-        change_object = Change.objects.create(model="Place", type_of_change="create", content=serializer.data)
+        renderer = JSONRenderer()
+        renderer.charset = "utf-8"
+        json = renderer.render(serializer.data).decode("utf-8")
+        change_object = Change.objects.create(model="Place", type_of_change="create", content=json)
         return HttpResponseRedirect(self.get_success_url())
 
 
@@ -293,7 +324,10 @@ class PlaceDeleteView(LoginRequiredMixin, DeleteView):
         self.object = self.get_object()
         success_url = self.get_success_url()
         serializer = PlaceSerializer(self.object)
-        change_object = Change.objects.create(model="Place", type_of_change="delete", content=serializer.data)
+        renderer = JSONRenderer()
+        renderer.charset = "utf-8"
+        json = renderer.render(serializer.data).decode("utf-8")
+        change_object = Change.objects.create(model="Place", type_of_change="delete", content=json)
         self.object.delete()
         return HttpResponseRedirect(success_url)
 
@@ -314,7 +348,10 @@ class PlaceUpdateView(LoginRequiredMixin, UpdateView):
     def form_valid(self, form):
         self.object = form.save()
         serializer = PlaceSerializer(self.object)
-        change_object = Change.objects.create(model="Place", type_of_change="update", content=serializer.data)
+        renderer = JSONRenderer()
+        renderer.charset = "utf-8"
+        json = renderer.render(serializer.data).decode("utf-8")
+        change_object = Change.objects.create(model="Place", type_of_change="update", content=json)
         return HttpResponseRedirect(self.get_success_url())
 
 
@@ -335,7 +372,10 @@ class PartnerStatusCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         self.object = form.save()
         serializer = PartnerStatusSerializer(self.object)
-        change_object = Change.objects.create(model="PartnerStatus", type_of_change="create", content=serializer.data)
+        renderer = JSONRenderer()
+        renderer.charset = "utf-8"
+        json = renderer.render(serializer.data).decode("utf-8")
+        change_object = Change.objects.create(model="PartnerStatus", type_of_change="create", content=json)
         return HttpResponseRedirect(self.get_success_url())
 
     def get_context_data(self, **kwargs):
@@ -355,7 +395,10 @@ class PartnerStatusDeleteView(LoginRequiredMixin, DeleteView):
         self.object = self.get_object()
         success_url = self.get_success_url()
         serializer = PartnerStatusSerializer(self.object)
-        change_object = Change.objects.create(model="PartnerStatus", type_of_change="delete", content=serializer.data)
+        renderer = JSONRenderer()
+        renderer.charset = "utf-8"
+        json = renderer.render(serializer.data).decode("utf-8")
+        change_object = Change.objects.create(model="PartnerStatus", type_of_change="delete", content=json)
         self.object.delete()
         return HttpResponseRedirect(success_url)
 
@@ -372,7 +415,10 @@ class PartnerStatusUpdateView(LoginRequiredMixin, UpdateView):
         self.object = self.get_object()
         success_url = self.get_success_url()
         serializer = PartnerStatusSerializer(self.object)
-        change_object = Change.objects.create(model="PartnerStatus", type_of_change="delete", content=serializer.data)
+        renderer = JSONRenderer()
+        renderer.charset = "utf-8"
+        json = renderer.render(serializer.data).decode("utf-8")
+        change_object = Change.objects.create(model="PartnerStatus", type_of_change="delete", content=json)
         self.object.delete()
         return HttpResponseRedirect(success_url)
 
@@ -409,8 +455,11 @@ class NewsCreateView(LoginRequiredMixin, CreateView):
     
     def form_valid(self, form):
         self.object = form.save()
-        serializer = NewsSerializer(self.object)
-        change_object = Change.objects.create(model="News", type_of_change="create", content=serializer.data)
+        serializer = NewsSerializer(self.object, allow_null=True)
+        renderer = JSONRenderer()
+        renderer.charset = "utf-8"
+        json = renderer.render(serializer.data).decode("utf-8")
+        change_object = Change.objects.create(model="News", type_of_change="create", content=json)
         return HttpResponseRedirect(self.get_success_url())
     
     """def form_valid(self, form):
@@ -427,7 +476,10 @@ class NewsDeleteView(LoginRequiredMixin, DeleteView):
         self.object = self.get_object()
         success_url = self.get_success_url()
         serializer = NewsSerializer(self.object)
-        change_object = Change.objects.create(model="News", type_of_change="delete", content=serializer.data)
+        renderer = JSONRenderer()
+        renderer.charset = "utf-8"
+        json = renderer.render(serializer.data).decode("utf-8")
+        change_object = Change.objects.create(model="News", type_of_change="delete", content=json)
         self.object.delete()
         return HttpResponseRedirect(success_url)
 
@@ -447,8 +499,11 @@ class NewsUpdateView(LoginRequiredMixin, UpdateView):
     
     def form_valid(self, form):
         self.object = form.save()
-        serializer = NewsSerializer(self.object)
-        change_object = Change.objects.create(model="News", type_of_change="update", content=serializer.data)
+        serializer = NewsSerializer(self.object, allow_null=True)
+        renderer = JSONRenderer()
+        renderer.charset = "utf-8"
+        json = renderer.render(serializer.data).decode("utf-8")
+        change_object = Change.objects.create(model="News", type_of_change="update", content=json)
         return HttpResponseRedirect(self.get_success_url())
     
     """def form_valid(self, form):
@@ -478,7 +533,10 @@ class PictureCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         self.object = form.save()
         serializer = PictureSerializer(self.object)
-        change_object = Change.objects.create(model="Picture", type_of_change="create", content=serializer.data)
+        renderer = JSONRenderer()
+        renderer.charset = "utf-8"
+        json = renderer.render(serializer.data).decode("utf-8")
+        change_object = Change.objects.create(model="Picture", type_of_change="create", content=json)
         return HttpResponseRedirect(self.get_success_url())
 
 
@@ -492,7 +550,10 @@ class PictureDeleteView(LoginRequiredMixin, DeleteView):
         self.object = self.get_object()
         success_url = self.get_success_url()
         serializer = PictureSerializer(self.object)
-        change_object = Change.objects.create(model="Picture", type_of_change="delete", content=serializer.data)
+        renderer = JSONRenderer()
+        renderer.charset = "utf-8"
+        json = renderer.render(serializer.data).decode("utf-8")
+        change_object = Change.objects.create(model="Picture", type_of_change="delete", content=json)
         self.object.delete()
         return HttpResponseRedirect(success_url)
 
