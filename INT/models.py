@@ -32,7 +32,7 @@ class PartnerStatus(models.Model):
 class Company(models.Model):
     name = models.CharField(max_length=256)
     description = models.TextField(null=True, blank=True)
-    status_id = models.ForeignKey('PartnerStatus', null=True, blank=True, on_delete=models.CASCADE)
+    status_id = models.ForeignKey('PartnerStatus', null=True, blank=True, on_delete=models.CASCADE, related_name='companies')
     picture_id = models.ForeignKey('Picture', null=True, blank=True, on_delete=models.CASCADE)
 
     def __str__(self):

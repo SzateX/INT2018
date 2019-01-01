@@ -127,13 +127,15 @@
             <div class="section int-light-grey scrollspy" id="partners">
                 <div class="row container blue-grey-text text-darken-4">
                     <h2 class="header center">PARTNERZY</h2>
-                    <div class="row center">
-                        <div class="partnercenter">
-                            {% for partner in partners %}
-                                <div class="col m2">
-                                    <a href="{% url 'FrontCompanyDetail' partner.pk %}"><img src="{{partner.picture_id.source.url}}" alt="" class="circle responsive-img"></a>
-                                    <a href="{% url 'FrontCompanyDetail' partner.pk %}">{{partner.name}}</a>
-                                </div>
+                    {% for partner_status in partner_statuses %}
+                        <h4 class="header">{{ partner_status.name }}</h4>
+                        <div class="row center">
+                            <div class="partnercenter">
+                                {% for partner in partner_status.companies.all %}
+                                    <div class="col m2">
+                                        <a href="{% url 'FrontCompanyDetail' partner.pk %}"><img src="{{partner.picture_id.source.url}}" alt="" class="circle responsive-img"></a>
+                                        <a href="{% url 'FrontCompanyDetail' partner.pk %}">{{partner.name}}</a>
+                                    </div>
                                 {% if forloop.counter|divisibleby:6 %}
                                     </div></div>
                                     <div class="row center">
@@ -142,6 +144,7 @@
                             {% endfor %}
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
             </div>
 {% endblock %}

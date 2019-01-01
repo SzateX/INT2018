@@ -36,6 +36,9 @@ class HomepageView(TemplateView):
         context = super(HomepageView, self).get_context_data(**kwargs)
         context['lectures'] = Lecture.objects.all().order_by('begin_time')
         context['partners'] = Company.objects.all()
+        context['partner_statuses'] = PartnerStatus.objects\
+            .filter(priority__isnull=False)\
+            .order_by('priority').prefetch_related('companies')
         return context
 
 
