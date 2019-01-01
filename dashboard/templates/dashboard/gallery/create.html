@@ -1,0 +1,27 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+    <nav class="bg-blue-2">
+        <div class="nav-wrapper container">
+            <div class="col s12">
+                {% if isEdited %}
+                {% else %}
+                    <a href="{% url 'dashboard' %}" class="breadcrumb">Dashboard</a>
+                    <a href="{% url 'gallery_list' %}" class="breadcrumb">Obrazki</a>
+                    <a href="#!" class="breadcrumb">Dodawanie obrazka</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn waves-effect waves-light bg-blue-2" type="submit" name="action">Zatwierdź
+                    <i class="material-icons right">send</i>
+                </button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
