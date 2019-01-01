@@ -82,3 +82,13 @@ class Change(models.Model):
 
     def __str__(self):
         return "%s %s %s" % (self.model, self.type_of_change, self.content)
+
+
+class Photo(models.Model):
+    source = models.ImageField(null=True, blank=True)
+
+    """def __str__(self):
+        return "%s" % self.pk"""
+
+    def __str__(self):
+        return '{}'.format(self.source)

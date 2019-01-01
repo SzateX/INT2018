@@ -45,5 +45,8 @@ urlpatterns = [
     url(r'^pictures$', PicturesView.as_view(), name='picture_list'),
     url(r'^pictures/upload', PictureCreateView.as_view(), name='picture_create'),
     url(r'^pictures/(?P<pk>\d+)/delete$', PictureDeleteView.as_view(), name='picture_delete'),
-    url(r'^notify', NotifyView.as_view(), name='notification')
+    url(r'^notify', NotifyView.as_view(), name='notification'),
+    url(r'^gallery$', PicturesView.as_view(), name='gallery_list'),
+    url(r'^gallery/upload', PictureCreateView.as_view(), name='gallery_create'),
+    url(r'^gallery/(?P<pk>\d+)/delete$', PictureDeleteView.as_view(), name='gallery_delete'),
 ]
