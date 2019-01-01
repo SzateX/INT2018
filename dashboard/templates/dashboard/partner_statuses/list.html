@@ -20,6 +20,7 @@
                 <thead>
                     <tr>
                         <th>Nazwa</th>
+                        <th>Piorytet</th>
                         <th>Akcje</th>
                     </tr>
                 </thead>
@@ -27,6 +28,7 @@
                     {% for status in statuses %}
                             <tr>
                                 <td>{{ status.name }}</td>
+                                <td>{{ status.priority }}</td>
                                 <td class="no-click">
                                     <a href="{% url 'partner_status_edit' status.pk %}"><i class="small material-icons">edit</i></a>
                                     <a href="{% url 'partner_status_delete' status.pk %}"><i class="small material-icons">remove_circle</i></a>

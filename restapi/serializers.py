@@ -17,7 +17,7 @@ class PictureSerializer(serializers.ModelSerializer):
 class PartnerStatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = PartnerStatus
-        fields = ('id', 'name')
+        fields = ('id', 'name', 'priority')
 
 
 class CompanySerializer(serializers.ModelSerializer):

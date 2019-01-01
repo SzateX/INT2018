@@ -365,7 +365,7 @@ class PartnerStatusesView(LoginRequiredMixin, ListView):
 class PartnerStatusCreateView(LoginRequiredMixin, CreateView):
     model = PartnerStatus
     template_name = 'dashboard/partner_statuses/create.html'
-    fields = ['name']
+    fields = ['name', 'priority']
     success_url = '/dashboard/partner_statuses'
     login_url = LOGIN_URL
     
@@ -406,7 +406,7 @@ class PartnerStatusDeleteView(LoginRequiredMixin, DeleteView):
 class PartnerStatusUpdateView(LoginRequiredMixin, UpdateView):
     model = PartnerStatus
     template_name = 'dashboard/partner_statuses/create.html'
-    fields = ['name']
+    fields = ['name', 'priority']
     success_url = '/dashboard/partner_statuses'
     context_object_name = 'status'
     login_url = LOGIN_URL
