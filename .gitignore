@@ -252,3 +252,4 @@ db.sqlite3
 INT/migrations/*
 mediafolder/*
 INT/migrations/*
+INT2018/secret_settings.py
