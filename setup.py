@@ -2,7 +2,7 @@ import os
 from setuptools import setup, find_packages
 
 requirements = ['django', 'django_extensions', 'martor', 'Pillow',
-                      'factory_boy', 'django_nose', 'djangorestframework', 'markdown', 'django-filter', 'channels', 'channels_redis', 'selenium', 'Faker', 'daphne', 'django-selenium-login', 'nose', 'asgiref', 'coverage']
+                      'factory_boy', 'django_nose', 'djangorestframework', 'markdown', 'django-filter', 'selenium', 'Faker', 'django-selenium-login', 'nose', 'asgiref', 'coverage']
 
 if os.name == 'nt':
     requirements += ['pypiwin32', 'pywin32']

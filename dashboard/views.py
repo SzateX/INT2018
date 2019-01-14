@@ -1,4 +1,3 @@
-from asgiref.sync import async_to_sync
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.http import HttpResponseRedirect
@@ -6,7 +5,6 @@ from django.views.generic import *
 from INT.models import *
 from .forms import NewsForms, LectureForm, SpeakerForm, CompanyForm, NotifyForm
 from restapi.serializers import *
-from channels.layers import get_channel_layer
 import json
 from rest_framework.renderers import JSONRenderer
 
@@ -565,17 +563,6 @@ class NotifyView(LoginRequiredMixin, FormView):
     form_class = NotifyForm
 
     def form_valid(self, form):
-        message = {
-            'id': timezone.now().strftime("%Y%m%d%H%M%S"),
-            'content': form.cleaned_data['content'],
-            'type_of_message': form.cleaned_data['type_of_notification'].name
-        }
-        group = "chat_%s" % form.cleaned_data['channel'].name
-        layer = get_channel_layer()
-        async_to_sync(layer.group_send)(group, {
-            'type': 'chat_message',
-            'message': json.dumps(message)
-        })
         return super(NotifyView, self).form_valid(form)
 
 
