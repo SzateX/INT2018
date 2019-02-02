@@ -6,10 +6,11 @@
                 <div class="row container blue-grey-text text-darken-4">
                     <h2 class="header center">O KONFERENCJI</h2>
                     <div style="text-align: justify">
-                        <p>INnovation Technology Conference (INT C) to wyjątkowe wydarzenie organizowane przez studentów Politechniki Rzeszowskiej, a dokładniej przez członków dwóch Kół Naukowych: Elektroniki i Technologii Informacyjnych (Rzeszowska Grupa IT) oraz Informatyków KOD (Rzeszowska Grupa.NET).</p>
-                        <p>Konferencja ta ma na celu zachęcić młodych miłośników branży IT do dalszego rozwoju w tym kierunku oraz wyjść naprzeciw oczekiwaniom współczesnego rynku pracy na podkarpaciu. Jeśli jesteś jednym z IT maniaków to wydarzenie to jest właśnie dla Ciebie!</p>
-                        <p>Nie ważne czy jesteś uczniem szkoły średniej, studiujesz na pierwszym lub na ostatnim roku – już teraz zadbaj o swoją przyszłość i weź udział w INnovation Technology Conference!</p>
-
+                        <p>INnovation Technology Conference (INT C) to wyjątkowe wydarzenie organizowane przez studentów Politechniki Rzeszowskiej, a dokładniej przez członków dwóch Kół Naukowych: Elektroniki i Technologii Informacyjnych (Rzeszowska Grupa IT), Informatyków KOD (Rzeszowska Grupa.NET) oraz Zakład Systemów Złożonych działający przy Wydziale Elektrotechniki i Informatyki Politechniki Rzeszowskiej wraz z Polskim Towarzystwem Informatycznym Oddział Podkarpacki.</p>
+                        <p>Konferencja ta ma na celu zachęcić młodych miłośników branży IT do dalszego rozwoju w tym kierunku oraz wyjść naprzeciw oczekiwaniom współczesnego rynku pracy na Podkarpaciu. Jeśli jesteś jednym z IT maniaków to to wydarzenie jest właśnie dla Ciebie!</p>
+                        <p>INT C zaprezentuje nowoczesne i innowacyjne rozwiązania stosowane w przemyśle informatycznym i elektronicznym. Na uczestników czeka również masa wiedzy, która zostanie przekazana przez specjalistów z najlepszych firm na Podkarpaciu, w Polsce i na świecie. Kto wystąpi w tym roku? Musisz przyjść osobiście i się przekonać!</p>
+                        <p>Stoiska naszych partnerów będą oferować różne atrakcje i konkursy (w tym wspaniałe nagrody do wygrania), a także coś bardziej oficjalnego jak oferty praktyk, staży a nawet pracy. Jest to jedyna taka okazja, by podczas prelekcji i różnorodnych warsztatów poznać wymagania przyszłego pracodawcy i tym samym stać się potencjalnym pracownikiem branży IT. A może po INT C postanowisz być sam sobie szefem? – To już zależy od Ciebie :-)</p>
+                        <p>Nie ważne czy jesteś uczniem szkoły średniej, studiujesz na pierwszym lub na ostatnim roku – już teraz zadbaj o swoją przyszłość i weź udział w INnovation Technology Conference już w marcu!</p>
                     </div>
                 </div>
             </div>
@@ -19,7 +20,7 @@
                     <div class="col l6">
                         <h5>
                             <p>Politechnika Rzeszowska im. Ignacego Łukasiewicza</p>
-                            <p>Budynek V<br></p>
+                            <p>Centrum Dydaktyczno-Konferencyjne i Biblioteczno-Administracyjne<br></p>
                             <p>Aleja Powstańców Warszawy 12, 35-959 Rzeszów</p>
                         </h5>
                     </div>
@@ -38,8 +39,10 @@
             <div class="section int-light-grey scrollspy" id="lectures">
                 <div class="row container blue-grey-text text-darken-4">
                     <h2 class="header center">AGENDA</h2>
+                    {% if lectures %}
                     <div class="row fl">
                         <div class="col m6">
+
                             {% for lecture in lectures|rows:"2"|first %}
                             <h6><i class="fa fa-clock-o" aria-hidden="false"></i> {{lecture.begin_time|time:"H:i"}} - {{lecture.end_time|time:"H:i"}}<span style="margin-left: 4em"></span> <i class="fa fa-building-o" aria-hidden="false"></i> {{lecture.place_id.building_name}}{{lecture.place_id.room_name}}</h6>
                             <h5>{{lecture.title}}</h5>
@@ -72,6 +75,11 @@
                             {% endfor %}
                         </div>
                     </div>
+                    {% else %}
+                        <div class="row">
+                            <h4 class="header center">Już niedługo!</h4>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
             <div class="parallax-container">
@@ -94,20 +102,20 @@
                         <div class="col m6 l3">
                             <div class="card">
                                 <div class="card-image">
-                                    <img src="{% static 'frontpage/img/organizatorzy/dolina.jpg' %}">
+                                    <img src="{% static 'frontpage/img/organizatorzy/pti.jpg' %}">
                                 </div>
                                 <div class="card-content blue-grey lighten-5 blue-grey-text text-darken-4">
-                                    <a href="https://www.facebook.com/DolinaWiedzy">Fundacja Wspierania Edukacji przy Stowarzyszeniu Dolina Lotnicza</a>
+                                    <a href="http://www.rzeszow.pti.org.pl/">Polskie Towarzystwo Informatyczne - Oddział Podkarpacki</a>
                                 </div>
                             </div>
                         </div>
                         <div class="col m6 l3">
                             <div class="card">
                                 <div class="card-image">
-                                    <img src="{% static 'frontpage/img/organizatorzy/generator.jpg' %}">
+                                    <img src="{% static 'frontpage/img/organizatorzy/zsz.jpg' %}">
                                 </div>
                                 <div class="card-content blue-grey lighten-5 blue-grey-text text-darken-4">
-                                    <a href="https://www.facebook.com/generatorinspiracji/">Fundacja Generator Inspiracji</a><br>&nbsp;
+                                    <a href="https://zsz.prz.edu.pl/">Zakład Systemów Złożonych</a>&nbsp;
                                 </div>
                             </div>
                         </div>
@@ -127,6 +135,7 @@
             <div class="section int-light-grey scrollspy" id="partners">
                 <div class="row container blue-grey-text text-darken-4">
                     <h2 class="header center">PARTNERZY</h2>
+                    {% if partner_statuses %}
                     {% for partner_status in partner_statuses %}
                         <h4 class="header">{{ partner_status.name }}</h4>
                         <div class="row center">
@@ -145,6 +154,11 @@
                         </div>
                     </div>
                     {% endfor %}
+                {% else %}
+                        <div class="row">
+                            <h4 class="header center">Wkrótce odkryjemy - śledźcie nasze media społecznościowe</h4>
+                        </div>
+                {% endif %}
                 </div>
             </div>
 {% endblock %}

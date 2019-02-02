@@ -154,7 +154,7 @@ class LectureCreateView(LoginRequiredMixin, CreateView):
 class LectureDeleteView(LoginRequiredMixin, DeleteView):
     model = Lecture
     template_name = 'dashboard/lectures/delete.html'
-    success_url = '/dashboard/lecture'
+    success_url = '/dashboard/lectures'
     context_object_name = 'lecture'
     login_url = LOGIN_URL
     
